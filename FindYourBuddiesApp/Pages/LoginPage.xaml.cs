@@ -22,10 +22,14 @@ namespace FindYourBuddiesApp.Pages
     /// </summary>
     public sealed partial class LoginPage : Page
     {
+        
+
         public LoginPage()
         {
             this.InitializeComponent();
         }
+
+
 
 
         //TODO add Navigation change 

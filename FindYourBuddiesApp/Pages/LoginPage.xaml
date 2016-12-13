@@ -41,7 +41,7 @@
             </Grid>
             <Grid Row="1">
                 <StackPanel>
-                    <TextBox Name="PasswordTb"  Margin="40" MaxWidth="200" MinWidth="100" PlaceholderText="Password"></TextBox>
+                    <PasswordBox Name="PasswordTb"  Margin="40" MaxWidth="200" MinWidth="100" PlaceholderText="Password"></PasswordBox>
                 </StackPanel>
             </Grid>
             <Grid Row="2">

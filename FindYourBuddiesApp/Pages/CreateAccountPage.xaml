@@ -7,14 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="AntiqueWhite">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid MinHeight="50" Background="NavajoWhite">
@@ -40,18 +40,28 @@
                     <TextBlock Name="NameAvailableTb" Text="No Username Yet" MinWidth="150" MinHeight="30" Margin="15,0,15,0"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="40,20,40,20">
-                    <PasswordBox Name="PasswordBox" PlaceholderText="Password" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0" ></PasswordBox>
-                    <PasswordBox Name="PasswordConfirmBox" PlaceholderText="Confirm Password" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0" PasswordChanged="PasswordConfirmBox_OnPasswordChanged" ></PasswordBox>
+                    <TextBox Name="PasswordBox" PlaceholderText="Password" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0" ></TextBox>
+                    <TextBox Name="PasswordConfirmBox" PlaceholderText="Confirm Password" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0" TextChanged="PasswordConfirmBox_OnPasswordChanged" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="40,20,40,20">
-                    <TextBlock Name="PasswordCheckTb" Text="No Password Yet" Margin="15,0,15,0"> </TextBlock>
+                    <TextBlock Name="PasswordCheckTb" Text="No Password Yet" Margin="15,0,15,0" MinHeight="25"> </TextBlock>
                 </StackPanel>
             </StackPanel>
         </Grid>
+        
         <Grid Row="3">
-            
+            <StackPanel Orientation="Horizontal" Margin="40,20,40,20">
+                <ToggleSwitch  Margin="15,0,15,0" OnContent="Male" OffContent="Female"></ToggleSwitch>
+                <TextBox Name="AgeBox" PlaceholderText="Age" MinHeight="30" MaxHeight="30" MinWidth="75" MaxWidth="75" MaxLength="3" Margin="15,0,15,0"> </TextBox>
+            </StackPanel>
         </Grid>
+        
         <Grid Row="4">
+            <StackPanel Orientation="Horizontal" Margin="40,0,40,0">
+                <Button Name="CreateAccount" Content="Create Account" Background="Transparent" BorderBrush="Black" BorderThickness="1" Click="CreateAccount_OnClick" Margin="15,0,15,0"></Button>
+                <Button Name="BackToInlog" Content="Back Log In Screen" Background="Transparent" BorderBrush="Black" BorderThickness="1" Margin="15,0,15,0" Click="BackToInlog_OnClick"></Button>
+            </StackPanel>
+                
             
         </Grid>
         
