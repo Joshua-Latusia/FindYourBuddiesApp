@@ -5,9 +5,35 @@
     xmlns:local="using:FindYourBuddiesApp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:data="using:FindYourBuddiesApp.Data"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <maps:MapControl x:Name="Map"
+                         MapServiceToken="hXfoPb3UobMURPpymfd8~0KFlzLHFoGrO6NViSu2ltQ~AhzGBC78z3Ww6lQE6Df1AETSVLvCRCt7Q_WXIMPTYgiPpkVf6kNv0RYgId0cy5a0" 
+                         ZoomInteractionMode="GestureAndControl"
+                         TiltInteractionMode="GestureAndControl"
+                         RotateInteractionMode="GestureAndControl"
+                         Center="{x:Bind model.points[0].Position}"
+                         ZoomLevel="25">
 
+            <maps:MapItemsControl x:Name="MapItems" ItemsSource="{x:Bind model.points}">
+                <maps:MapItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="data:User">
+                        <StackPanel maps:MapControl.Location="{x:Bind Position}" >
+                            <Button Click="ButtonBase_OnClick" MaxWidth="50" MaxHeight="50">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Source="../Assets/BuddyIcon.png" ></Image>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <TextBlock Text="{x:Bind Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </maps:MapItemsControl.ItemTemplate>
+            </maps:MapItemsControl>
+        </maps:MapControl>
     </Grid>
 </Page>

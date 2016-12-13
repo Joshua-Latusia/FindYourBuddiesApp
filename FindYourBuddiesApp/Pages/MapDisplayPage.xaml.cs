@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using FindYourBuddiesApp.Data;
+using FindYourBuddiesApp.PageModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +24,19 @@ namespace FindYourBuddiesApp.Pages
     /// </summary>
     public sealed partial class MapDisplayPage : Page
     {
+        private DisplayMapModel model;
         public MapDisplayPage()
         {
             this.InitializeComponent();
+            model = new DisplayMapModel();
+            DataContext = model;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var b = (Button)sender;
+            var selected = (User)b.DataContext;
+            Map.Center = selected.Position;
         }
     }
 }
