@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary3.JSON
+﻿namespace SharedCode.JSON
 {
     public class LogInRequest
     {

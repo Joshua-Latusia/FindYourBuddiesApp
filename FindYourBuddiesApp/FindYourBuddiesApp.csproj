@@ -95,7 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\User.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -169,9 +168,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary3\ServerCommunication.csproj">
-      <Project>{2ba3c636-08af-4fb3-b973-feb5cff81f7b}</Project>
-      <Name>ServerCommunication</Name>
+    <ProjectReference Include="..\SharedCode\SharedCode.csproj">
+      <Project>{5840a860-1db1-4606-9ea3-806239f41615}</Project>
+      <Name>SharedCode</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

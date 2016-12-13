@@ -1,7 +1,11 @@
-﻿using Windows.Devices.Geolocation;
-using Windows.UI.StartScreen;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 
-namespace FindYourBuddiesApp.Data
+namespace SharedCode
 {
     public class User
     {
@@ -12,6 +16,6 @@ namespace FindYourBuddiesApp.Data
         {
             this.Name = name;
             this.Position = position;
-        } 
+        }
     }
 }
