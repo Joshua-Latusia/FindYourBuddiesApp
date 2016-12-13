@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FindYourBuddiesApp.Pages.BlankPage1"
+    x:Class="FindYourBuddiesApp.Pages.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FindYourBuddiesApp.Pages"
@@ -15,7 +15,7 @@
         
        
 
-        <Grid Row="0"  Background="NavajoWhite" >
+        <Grid Row="0" MinHeight="50" Background="NavajoWhite" >
             <StackPanel Orientation="Horizontal" MinHeight="30" MaxHeight="30" HorizontalAlignment="Center" >
                 <Image Source="../Assets/BuddyIcon.png" Margin="10,0,10,0" ></Image>
                 <TextBlock Text="Find Your Buddies!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,10,0" ></TextBlock>
@@ -23,9 +23,9 @@
             </StackPanel>
         </Grid>
 
-       
-        
-        <Grid Row="1" Background="AntiqueWhite">
+
+
+        <Grid Row="1" MinHeight="50" Background="AntiqueWhite">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>

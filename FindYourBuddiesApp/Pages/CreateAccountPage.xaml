@@ -9,5 +9,51 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid MinHeight="50" Background="NavajoWhite">
+            <StackPanel Orientation="Horizontal" MinHeight="30" MaxHeight="30" HorizontalAlignment="Center" >
+                <Image Source="../Assets/BuddyIcon.png" Margin="10,0,10,0" ></Image>
+                <TextBlock Text="Create Account To Find Your Buddies!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,10,0" ></TextBlock>
+                <Image Source="../Assets/BuddyIcon.png"  Margin="10,0,10,0" ></Image>
+            </StackPanel>
+        </Grid>
+
+        <Grid Row="1">
+            <StackPanel Orientation="Horizontal" Margin="40,50,40,0">
+                <TextBox Name="FirstNameBox" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="First Name" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0"></TextBox>
+                <TextBox Name="LastNameBox" VerticalAlignment="Center" HorizontalAlignment="Center" PlaceholderText="Last Name" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0"></TextBox>
+            </StackPanel>
+                 
+        </Grid>
+        
+        <Grid Row="2">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="40,20,40,20">
+                    <TextBox Name="UsernameBox" PlaceholderText="Username" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0" TextChanged="UsernameBox_OnTextChanged"></TextBox>
+                    <TextBlock Name="NameAvailableTb" Text="No Username Yet" MinWidth="150" MinHeight="30" Margin="15,0,15,0"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="40,20,40,20">
+                    <PasswordBox Name="PasswordBox" PlaceholderText="Password" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0" ></PasswordBox>
+                    <PasswordBox Name="PasswordConfirmBox" PlaceholderText="Confirm Password" MinWidth="150" MinHeight="30" MaxHeight="30" Margin="15,0,15,0" PasswordChanged="PasswordConfirmBox_OnPasswordChanged" ></PasswordBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="40,20,40,20">
+                    <TextBlock Name="PasswordCheckTb" Text="No Password Yet" Margin="15,0,15,0"> </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Row="3">
+            
+        </Grid>
+        <Grid Row="4">
+            
+        </Grid>
+        
     </Grid>
 </Page>

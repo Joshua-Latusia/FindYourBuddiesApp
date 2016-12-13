@@ -20,9 +20,9 @@ namespace FindYourBuddiesApp.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BlankPage1 : Page
+    public sealed partial class LoginPage : Page
     {
-        public BlankPage1()
+        public LoginPage()
         {
             this.InitializeComponent();
         }
@@ -31,13 +31,15 @@ namespace FindYourBuddiesApp.Pages
         //TODO add Navigation change 
         private void CreateAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            this.Frame.Navigate(typeof(CreateAccountPage));
         }
 
         //TODO add Login stuff
         private void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            //DO login stuff checks etc.
+
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }
