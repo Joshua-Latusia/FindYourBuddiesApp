@@ -26,5 +26,15 @@ namespace FindYourBuddiesApp.Pages
         {
             this.InitializeComponent();
         }
+
+        private void UsernameBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            //TODO check if name is available with server
+        }
+
+        private void PasswordConfirmBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            //TODO check if the both password box are the same and set the text to show user if it is or isn't
+        }
     }
 }
