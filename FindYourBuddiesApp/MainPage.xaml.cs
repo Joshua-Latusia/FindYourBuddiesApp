@@ -8,6 +8,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
@@ -73,5 +74,6 @@ namespace FindYourBuddiesApp
             BackButton.Visibility = Visibility.Collapsed;
             PageName.Text = "Find your buddies!";
         }
+
     }
 }

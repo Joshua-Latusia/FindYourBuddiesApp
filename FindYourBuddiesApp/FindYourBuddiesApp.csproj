@@ -98,6 +98,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PageModels\MainModel.cs" />
     <Compile Include="Pages\AddFriendPage.xaml.cs">
       <DependentUpon>AddFriendPage.xaml</DependentUpon>
     </Compile>
@@ -167,7 +168,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PageModels\" />
+    <ProjectReference Include="..\SharedCode\SharedCode.csproj">
+      <Project>{5840a860-1db1-4606-9ea3-806239f41615}</Project>
+      <Name>SharedCode</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
