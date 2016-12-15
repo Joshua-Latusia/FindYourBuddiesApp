@@ -169,7 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedCode\SharedCode.csproj">
-      <Project>{5840a860-1db1-4606-9ea3-806239f41615}</Project>
+      <Project>{999164be-cd28-4c9a-bc86-c56b185e2aec}</Project>
       <Name>SharedCode</Name>
     </ProjectReference>
   </ItemGroup>

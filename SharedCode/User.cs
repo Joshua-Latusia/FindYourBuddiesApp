@@ -9,13 +9,15 @@ namespace SharedCode
 {
     public class User
     {
-        public Geopoint Position;
-        public string Name;
+        private Geopoint _location;
+        private string Name;
 
-        public User(string name, Geopoint position)
+        public User(string name, Geopoint location)
         {
             this.Name = name;
-            this.Position = position;
+            this._location = location;
         }
+
+        public Geopoint Position { get; set; }
     }
 }
