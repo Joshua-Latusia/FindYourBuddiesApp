@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Devices.Geolocation;
-
-namespace SharedCode
+﻿namespace SharedCode
 {
     public class User
     {
@@ -16,9 +9,8 @@ namespace SharedCode
         public string PasswordHash { get; set; }
         public int Age { get; set; }
         public bool IsMan { get; set; }
-        public List<User> Friends = new List<User>();
 
-        public Geopoint Location;
+        //public Geopoint Location;
 
         public User()
         {
