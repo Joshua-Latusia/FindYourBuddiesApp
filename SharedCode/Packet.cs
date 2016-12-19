@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SharedCode
+﻿namespace SharedCodePortable
 {
-    class Packet
+    public class Packet
     {
         public EPacketType PacketType;
-        public string Token;
         public string Payload;
+        public string Token;
     }
 
-    enum EPacketType
+    public enum EPacketType
     {
         LoginRequest,
         LoginResponse,
         RefreshRequest,
         RefreshResponse,
+        NewAccountRequest,
         SuccesResponse
     }
 }

@@ -6,66 +6,74 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Windows.Devices.Geolocation"
     xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
-    xmlns:data1="using:FindYourBuddiesApp.Data"
     x:Class="FindYourBuddiesApp.MainPage"
     mc:Ignorable="d">
 
     <Grid Background="AntiqueWhite">
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <RelativePanel>
-            <Button Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Background="NavajoWhite" FontSize="20" VerticalAlignment="Top" Click="HamburgerButton_OnClick" ></Button>
-            <Button Name="RefreshButton" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE895;" RelativePanel.LeftOf="LogoImg" Margin="5,0,5,0" Background="Transparent" ></Button>
-            <Image Name="LogoImg" Source="../Assets/BuddyIcon.png"  RelativePanel.AlignRightWithPanel="True" MaxHeight="32" Margin="5,0,5,0"></Image>
-            
-            <Button Name="BackButton" Background="Transparent" Visibility="Collapsed"  RelativePanel.RightOf="HamburgerButton" FontFamily="Segoe MDL2 Assets" FontSize="20"  Content="&#xE72B;" Click="BackButton_OnClick"> </Button>
-            <TextBlock Name="PageName" RelativePanel.RightOf="BackButton" Text="Find your buddies!" FontSize="20" Margin="20,0,0,0"></TextBlock>
+            <Button Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Background="NavajoWhite"
+                    FontSize="20" VerticalAlignment="Top" Click="HamburgerButton_OnClick" />
+            <Button Name="RefreshButton" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE895;"
+                    RelativePanel.LeftOf="LogoImg" Margin="5,0,5,0" Background="Transparent" />
+            <Image Name="LogoImg" Source="../Assets/BuddyIcon.png" RelativePanel.AlignRightWithPanel="True"
+                   MaxHeight="32" Margin="5,0,5,0" />
+
+            <Button Name="BackButton" Background="Transparent" Visibility="Collapsed"
+                    RelativePanel.RightOf="HamburgerButton" FontFamily="Segoe MDL2 Assets" FontSize="20"
+                    Content="&#xE72B;" Click="BackButton_OnClick" />
+            <TextBlock Name="PageName" RelativePanel.RightOf="BackButton" Text="Find your buddies!" FontSize="20"
+                       Margin="20,0,0,0" />
         </RelativePanel>
 
         <Grid Row="1">
 
-            <Frame Name="Frame"  HorizontalAlignment="Left" VerticalAlignment="Top"></Frame>
+            <Frame Name="Frame" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-            <SplitView Name="HamburgerSplitview" DisplayMode="CompactOverlay" RelativePanel.Below="HamburgerButton" HorizontalAlignment="Left" CompactPaneLength="40" OpenPaneLength="175" PaneBackground="Transparent"  >
-                <SplitView.Pane >
-                    <ListBox x:Name="MenuListBox"  SelectionMode="Single"  SelectionChanged="MenuListBox_OnSelectionChanged" Background="NavajoWhite">
-                    
+            <SplitView Name="HamburgerSplitview" DisplayMode="CompactOverlay" RelativePanel.Below="HamburgerButton"
+                       HorizontalAlignment="Left" CompactPaneLength="40" OpenPaneLength="175"
+                       PaneBackground="Transparent">
+                <SplitView.Pane>
+                    <ListBox x:Name="MenuListBox" SelectionMode="Single"
+                             SelectionChanged="MenuListBox_OnSelectionChanged" Background="NavajoWhite">
+
                         <ListBoxItem Name="Map" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  FontFamily="Segoe MDL2 Assets" Text="&#xE707;" FontSize="20" ></TextBlock>
-                                <TextBlock  Margin="10,0,0,0" Text="Map" FontSize="20"></TextBlock>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE707;" FontSize="20" />
+                                <TextBlock Margin="10,0,0,0" Text="Map" FontSize="20" />
                             </StackPanel>
                         </ListBoxItem>
 
                         <ListBoxItem Name="Friends" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  FontFamily="Segoe MDL2 Assets" Text="&#59158;" FontSize="22" ></TextBlock>
-                                <TextBlock  Margin="10,0,0,0" Text="Friends" FontSize="20"></TextBlock>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#59158;" FontSize="22" />
+                                <TextBlock Margin="10,0,0,0" Text="Friends" FontSize="20" />
                             </StackPanel>
                         </ListBoxItem>
 
                         <ListBoxItem Name="Meeting">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  FontFamily="Segoe MDL2 Assets" Text="&#xE718;" FontSize="20" ></TextBlock>
-                                <TextBlock  Margin="10,0,0,0" Text="Meeting" FontSize="20"></TextBlock>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE718;" FontSize="20" />
+                                <TextBlock Margin="10,0,0,0" Text="Meeting" FontSize="20" />
                             </StackPanel>
                         </ListBoxItem>
 
                         <ListBoxItem Name="Settings" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  FontFamily="Segoe MDL2 Assets" Text="&#xE713;" FontSize="20" ></TextBlock>
-                                <TextBlock  Margin="10,0,0,0" Text="Settings" FontSize="20"></TextBlock>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE713;" FontSize="20" />
+                                <TextBlock Margin="10,0,0,0" Text="Settings" FontSize="20" />
                             </StackPanel>
                         </ListBoxItem>
 
                         <ListBoxItem Name="Help" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  FontFamily="Segoe MDL2 Assets" Text="&#xE897;" FontSize="20" ></TextBlock>
-                                <TextBlock  Margin="10,0,0,0" Text="Help" FontSize="20"></TextBlock>
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE897;" FontSize="20" />
+                                <TextBlock Margin="10,0,0,0" Text="Help" FontSize="20" />
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
@@ -75,7 +83,6 @@
             </SplitView>
 
         </Grid>
-        
 
 
     </Grid>

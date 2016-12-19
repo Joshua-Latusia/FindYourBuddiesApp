@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SharedCode;
- 
+using SharedCodePortable;
 
 namespace FindYourFriendsServer
 {
-    class TcpServer
+    internal class TcpServer
     {
-        private static int Port = 1337;
+        private static readonly int Port = 1337;
         private static TcpListener Listener;
 
         public static void Start()
@@ -24,50 +21,45 @@ namespace FindYourFriendsServer
 
             while (true)
             {
-                TcpClient client = Listener.AcceptTcpClient();
+                var client = Listener.AcceptTcpClient();
 
                 new Thread(HandleConnection).Start(client);
-
             }
         }
 
         private static void HandleConnection(object o)
         {
-            TcpClient client = (TcpClient) o;
+            var client = (TcpClient) o;
 
             Console.WriteLine($"Connection from: {client.Client.RemoteEndPoint}");
 
-            byte[] buffer = new byte[81920];
+            var buffer = new byte[81920];
 
-            int bytesRead = client.GetStream().Read(buffer, 0, buffer.Length);
+            var bytesRead = client.GetStream().Read(buffer, 0, buffer.Length);
 
-            byte[] jsonBytes = buffer.Take(bytesRead).ToArray();
+            var jsonBytes = buffer.Take(bytesRead).ToArray();
 
-            Packet p = JsonConvert.DeserializeObject<Packet>(Encoding.Default.GetString(jsonBytes));
+            var p = JsonConvert.DeserializeObject<Packet>(Encoding.Default.GetString(jsonBytes));
 
             Console.WriteLine($"Request: {p.PacketType}");
 
             switch (p.PacketType)
             {
-                    case EPacketType.LoginRequest:
+                case EPacketType.LoginRequest:
 
                     break;
 
-                    case EPacketType.NewAccountRequest:
+                case EPacketType.NewAccountRequest:
 
                     break;
 
-                   
 
-                    case EPacketType.RefreshRequest:
+                case EPacketType.RefreshRequest:
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
-
-
             }
-
         }
 
 
@@ -77,7 +69,5 @@ namespace FindYourFriendsServer
             client.GetStream().Write(bytes, 0, bytes.Length);
             client.Close();
         }
-
-
     }
 }

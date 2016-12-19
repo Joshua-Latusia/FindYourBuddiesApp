@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SharedCode;
 
 namespace FindYourFriendsServer
 {
-    class Login
+    internal class Login
     {
         public static bool CheckLogin(string username, string hash)
         {

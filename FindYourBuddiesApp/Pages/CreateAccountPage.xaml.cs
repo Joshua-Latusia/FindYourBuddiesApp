@@ -1,35 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
+using SharedCodePortable;
+using SharedCodePortable.Packets;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace FindYourBuddiesApp.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    ///     An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class CreateAccountPage : Page
     {
+        private bool _isPasswordMatching;
         //TODO set to false when username checking works
-        private bool _isUsernameAvailable = true;
-        private bool _isPasswordMatching = false;
+        private readonly bool _isUsernameAvailable = true;
 
         public CreateAccountPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        // This page needs connection with the server to either create account or check if username is available
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            dynamic inlogRequest = new LoginRequest {username = "Admin", password = "Admin"};
+            var packet = new Packet
+            {
+                PacketType = EPacketType.LoginRequest,
+                Token = "",
+                Payload = JsonConvert.SerializeObject(inlogRequest)
+            };
         }
 
         private void UsernameBox_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -53,39 +58,33 @@ namespace FindYourBuddiesApp.Pages
 
         private void CreateAccount_OnClick(object sender, RoutedEventArgs e)
         {
-             
-            if (FirstNameBox.Text.Length != 0 && LastNameBox.Text.Length != 0 &&
-                UsernameBox.Text.Length != 0 && _isUsernameAvailable && 
-                PasswordConfirmBox.Text.Length != 0 && _isPasswordMatching &&
-                AgeBox.Text.Length != 0)
+            if ((FirstNameBox.Text.Length != 0) && (LastNameBox.Text.Length != 0) &&
+                (UsernameBox.Text.Length != 0) && _isUsernameAvailable &&
+                (PasswordConfirmBox.Text.Length != 0) && _isPasswordMatching &&
+                (AgeBox.Text.Length != 0))
             {
                 int parsedValue;
                 if (int.TryParse(AgeBox.Text, out parsedValue))
-                {
-                    if (parsedValue > 1 && parsedValue < 150)
+                    if ((parsedValue > 1) && (parsedValue < 150))
                     {
                         CreateNewAccount();
-                        this.Frame.Navigate(typeof(LoginPage));
+                        Frame.Navigate(typeof(LoginPage));
                     }
                     else
                     {
                         CreationErrorDialog();
                     }
-                }
-                else{
-                    CreationErrorDialog();
-                }
+                else CreationErrorDialog();
             }
             else
             {
                 CreationErrorDialog();
             }
-            
         }
 
         private async void CreationErrorDialog()
         {
-            ContentDialog dialog = new ContentDialog()
+            var dialog = new ContentDialog
             {
                 Title = "Account creation failed",
                 PrimaryButtonText = "Ok",
@@ -106,12 +105,12 @@ namespace FindYourBuddiesApp.Pages
 
         private void BackToInlog_OnClick(object sender, RoutedEventArgs e)
         {
-            if (UsernameBox.Text.Length != 0 && PasswordBox.Text.Length != 0)
+            if ((UsernameBox.Text.Length != 0) && (PasswordBox.Text.Length != 0))
             {
                 var list = new List<string> {UsernameBox.Text, PasswordBox.Text};
-                this.Frame.Navigate(typeof(LoginPage),list);
+                Frame.Navigate(typeof(LoginPage), list);
             }
-            this.Frame.Navigate(typeof(LoginPage));
+            Frame.Navigate(typeof(LoginPage));
         }
     }
 }

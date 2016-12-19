@@ -8,54 +8,56 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-       <Grid.RowDefinitions>
-           <RowDefinition Height="Auto"></RowDefinition>
-           <RowDefinition Height="*"></RowDefinition>
-       </Grid.RowDefinitions>
-        
-       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <Grid Row="0" MinHeight="50" Background="NavajoWhite" >
-            <StackPanel Orientation="Horizontal" MinHeight="30" MaxHeight="30" HorizontalAlignment="Center" >
-                <Image Source="../Assets/BuddyIcon.png" Margin="10,0,10,0" ></Image>
-                <TextBlock Text="Find Your Buddies!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,10,0" ></TextBlock>
-                <Image Source="../Assets/BuddyIcon.png"  Margin="10,0,10,0" ></Image>
+
+        <Grid Row="0" MinHeight="50" Background="NavajoWhite">
+            <StackPanel Orientation="Horizontal" MinHeight="30" MaxHeight="30" HorizontalAlignment="Center">
+                <Image Source="../Assets/BuddyIcon.png" Margin="10,0,10,0" />
+                <TextBlock Text="Find Your Buddies!" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Margin="10,0,10,0" />
+                <Image Source="../Assets/BuddyIcon.png" Margin="10,0,10,0" />
             </StackPanel>
         </Grid>
 
 
-
         <Grid Row="1" MinHeight="50" Background="AntiqueWhite">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="3*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
-            
+
             <Grid Row="0">
                 <StackPanel>
-                    <TextBox Name="UserNameTb"  Margin="40"  MaxWidth="200" MinWidth="100" PlaceholderText="Username" ></TextBox>
+                    <TextBox Name="UserNameTb" Margin="40" MaxWidth="200" MinWidth="100" PlaceholderText="Username" />
                 </StackPanel>
             </Grid>
             <Grid Row="1">
                 <StackPanel>
-                    <PasswordBox Name="PasswordTb"  Margin="40" MaxWidth="200" MinWidth="100" PlaceholderText="Password"></PasswordBox>
+                    <PasswordBox Name="PasswordTb" Margin="40" MaxWidth="200" MinWidth="100" PlaceholderText="Password" />
                 </StackPanel>
             </Grid>
             <Grid Row="2">
-                <Button Name="LoginButton" Content="Log-In" VerticalAlignment="Center" HorizontalAlignment="Center" Background="NavajoWhite" Click="LoginButton_OnClick"></Button>
+                <Button Name="LoginButton" Content="Log-In" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Background="NavajoWhite" Click="LoginButton_OnClick" />
             </Grid>
             <Grid Row="4">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Don't Have an account?" Margin="10,5,10,0"></TextBlock>
-                    <Button Name="CreateAccountButton" Content="Create new account" Margin="10,0,10,0" Click="CreateAccountButton_OnClick"></Button>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal"
+                            Margin="10">
+                    <TextBlock Text="Don't Have an account?" Margin="10,5,10,0" />
+                    <Button Name="CreateAccountButton" Content="Create new account" Margin="10,0,10,0"
+                            Click="CreateAccountButton_OnClick" />
                 </StackPanel>
-                
+
             </Grid>
-            
+
         </Grid>
-        
+
     </Grid>
 </Page>
