@@ -15,13 +15,13 @@
                          ZoomInteractionMode="GestureAndControl"
                          TiltInteractionMode="GestureAndControl"
                          RotateInteractionMode="GestureAndControl"
-                         Center="{x:Bind model.points[0].Position}"
+                         Center="{x:Bind model.Points[0].location}"
                          ZoomLevel="25">
 
-            <maps:MapItemsControl x:Name="MapItems" ItemsSource="{x:Bind model.points}">
+            <maps:MapItemsControl x:Name="MapItems" ItemsSource="{x:Bind model.Points}">
                 <maps:MapItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="sharedCode:User">
-                        <StackPanel maps:MapControl.Location="{x:Bind Position}">
+                        <StackPanel maps:MapControl.Location="{x:Bind Position }">
                             <Button Click="ButtonBase_OnClick" MaxWidth="50" MaxHeight="50">
                                 <Button.Template>
                                     <ControlTemplate>

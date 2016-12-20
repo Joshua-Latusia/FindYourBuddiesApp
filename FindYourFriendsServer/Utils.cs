@@ -27,7 +27,7 @@ namespace FindYourFriendsServer
             {
                 tcpClient.Connect(IP_ADRESS, 1337);
             }
-            catch (SocketException e)
+            catch (SocketException)
             {
                 //Console.ReadKey();
             }

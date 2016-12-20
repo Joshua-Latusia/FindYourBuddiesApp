@@ -2,7 +2,9 @@
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Windows.Devices.Geolocation;
 using Newtonsoft.Json;
+using SharedCode;
 using SharedCodePortable;
 
 namespace FindYourBuddiesApp
@@ -38,6 +40,16 @@ namespace FindYourBuddiesApp
             Socket.ConnectAsync(socketEventArg);
             _clientDone.WaitOne(TIMEOUT_MILLISECONDS);
             return result;
+        }
+
+        public static Geopoint PointToGeopoint(Point point)
+        {
+            return new Geopoint(new BasicGeoposition() { Latitude = point.Latitude, Longitude = point.Longitude });
+        }
+
+        public static Point GeopointToPoint(Geopoint geopoint)
+        {
+            return new Point(geopoint.Position.Longitude, geopoint.Position.Latitude);
         }
 
 
