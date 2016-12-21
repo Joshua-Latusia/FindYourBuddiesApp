@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using SharedCodePortable;
 
@@ -13,6 +15,8 @@ namespace FindYourBuddiesApp.Pages
     {
 
         public User LogedInUser;
+        //TODO remove new bla bla and put this in the searchrequest button.
+        public ObservableCollection<User> MatchingUsers = new ObservableCollection<User>();
         public AddFriendPage()
         {
             InitializeComponent();
@@ -24,5 +28,19 @@ namespace FindYourBuddiesApp.Pages
         }
 
 
+        private void BackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(FriendsOverviewPage), LogedInUser);
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            //TODO send request with the requested username
+        }
+
+        private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            //TODO adds the clickedPerson
+        }
     }
 }

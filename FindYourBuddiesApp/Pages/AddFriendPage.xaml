@@ -7,7 +7,208 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Rectangle Width="10000" Stretch="UniformToFill" />
+    <Grid Background="Transparent">
+        
+        
+   
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid>
+            <Rectangle Width="10000" Stretch="UniformToFill" />
+            <StackPanel Orientation="Horizontal" Margin="25,0">
+                <TextBox Name="UserNameTb" PlaceholderText="Friends Username" MinWidth="175" MaxWidth="250" MaxHeight="25" ></TextBox>
+                <Button Content="Search Name" Margin="20,0,10,0" Click="ButtonBase_OnClick"></Button>
+            </StackPanel>
+        </Grid>
+        
+        <Grid Row="1">
+            <ScrollViewer VerticalAlignment="Stretch">
+                <StackPanel Orientation="Vertical">
+                    <ListView x:Name="ResultsList">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="10,15">
+                                    <Rectangle Width="1000"></Rectangle>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Username : "></TextBlock>
+                                            <TextBlock Text="Bind Username" Margin="15,0,0,0"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Firstname : "></TextBlock>
+                                            <TextBlock Text="Bind FirstName" Margin="15,0,0,0"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Lastname : "></TextBlock>
+                                            <TextBlock Text="Bind Lastname" Margin="15,0,0,0"></TextBlock>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                    <Button Name="AddFriendButton" FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" ></Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                        //Dele the items when databinding works in the template
+                        <ListViewItem>
+                            <Grid Margin="10,15">
+                                <Rectangle Width="1000"></Rectangle>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Username : "></TextBlock>
+                                        <TextBlock Text="Bind Username" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Firstname : "></TextBlock>
+                                        <TextBlock Text="Bind FirstName" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Lastname : "></TextBlock>
+                                        <TextBlock Text="Bind Lastname" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    </StackPanel>
+                                <Button Name="AddFriendButton" FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" ></Button>
+                            </Grid>
+                        </ListViewItem>
+
+                        <ListViewItem>
+                            <Grid Margin="10,15">
+                                <Rectangle Width="1000"></Rectangle>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Username : "></TextBlock>
+                                        <TextBlock Text="Bind Username" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Firstname : "></TextBlock>
+                                        <TextBlock Text="Bind FirstName" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Lastname : "></TextBlock>
+                                        <TextBlock Text="Bind Lastname" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <Button FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick"  ></Button>
+                            </Grid>
+                        </ListViewItem>
+
+                        <ListViewItem>
+                            <Grid Margin="10,15">
+                                <Rectangle Width="1000"></Rectangle>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Username : "></TextBlock>
+                                        <TextBlock Text="Bind Username" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Firstname : "></TextBlock>
+                                        <TextBlock Text="Bind FirstName" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Lastname : "></TextBlock>
+                                        <TextBlock Text="Bind Lastname" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <Button FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick"  ></Button>
+                            </Grid>
+                        </ListViewItem>
+
+                        <ListViewItem>
+                            <Grid Margin="10,15">
+                                <Rectangle Width="1000"></Rectangle>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Username : "></TextBlock>
+                                        <TextBlock Text="Bind Username" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Firstname : "></TextBlock>
+                                        <TextBlock Text="Bind FirstName" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Lastname : "></TextBlock>
+                                        <TextBlock Text="Bind Lastname" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <Button  FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" ></Button>
+                            </Grid>
+                        </ListViewItem>
+
+                        <ListViewItem>
+                            <Grid Margin="10,15">
+                                <Rectangle Width="1000"></Rectangle>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Username : "></TextBlock>
+                                        <TextBlock Text="Bind Username" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Firstname : "></TextBlock>
+                                        <TextBlock Text="Bind FirstName" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Lastname : "></TextBlock>
+                                        <TextBlock Text="Bind Lastname" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <Button  FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick"  ></Button>
+                            </Grid>
+                        </ListViewItem>
+
+                        <ListViewItem>
+                            <Grid Margin="10,15">
+                                <Rectangle Width="1000"></Rectangle>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Username : "></TextBlock>
+                                        <TextBlock Text="Bind Username" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Firstname : "></TextBlock>
+                                        <TextBlock Text="Bind FirstName" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Lastname : "></TextBlock>
+                                        <TextBlock Text="Bind Lastname" Margin="15,0,0,0"></TextBlock>
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <Button FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" ></Button>
+                            </Grid>
+                        </ListViewItem>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+               
+        <Grid Row="2">
+            
+            <Button Name="BackButton"  FontSize="24"  HorizontalAlignment="Center" Click="BackButton_OnClick" Content="Cancel Adding Friend"></Button>
+        </Grid>
+        
     </Grid>
 </Page>
