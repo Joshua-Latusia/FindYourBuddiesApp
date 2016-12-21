@@ -30,4 +30,6 @@ namespace FindYourBuddiesApp.Pages
             Map.Center = loc;
         }
     }
+
+   
 }

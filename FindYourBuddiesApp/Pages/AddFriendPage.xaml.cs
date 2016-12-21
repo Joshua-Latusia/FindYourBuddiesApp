@@ -1,4 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+using SharedCodePortable;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -9,9 +11,18 @@ namespace FindYourBuddiesApp.Pages
     /// </summary>
     public sealed partial class AddFriendPage : Page
     {
+
+        public User LogedInUser;
         public AddFriendPage()
         {
             InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            LogedInUser = (User) e.Parameter;
+        }
+
+
     }
 }

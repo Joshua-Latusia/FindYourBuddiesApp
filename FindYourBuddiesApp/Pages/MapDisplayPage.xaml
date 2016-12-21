@@ -6,10 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
-    xmlns:sharedCode="using:SharedCodePortable"
+    xmlns:findYourBuddiesApp="using:FindYourBuddiesApp"
+    xmlns:Data="using:FindYourBuddiesApp"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Rectangle Width="10000" Stretch="UniformToFill"></Rectangle>
         <maps:MapControl x:Name="Map"
                          MapServiceToken="hXfoPb3UobMURPpymfd8~0KFlzLHFoGrO6NViSu2ltQ~AhzGBC78z3Ww6lQE6Df1AETSVLvCRCt7Q_WXIMPTYgiPpkVf6kNv0RYgId0cy5a0"
                          ZoomInteractionMode="GestureAndControl"
@@ -20,8 +22,8 @@
 
             <maps:MapItemsControl x:Name="MapItems" ItemsSource="{x:Bind model.Points}">
                 <maps:MapItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="sharedCode:User">
-                        <StackPanel maps:MapControl.Location="{x:Bind Position }">
+                    <DataTemplate x:DataType="findYourBuddiesApp:UwpUser">
+                        <StackPanel maps:MapControl.Location="{x:Bind location }">
                             <Button Click="ButtonBase_OnClick" MaxWidth="50" MaxHeight="50">
                                 <Button.Template>
                                     <ControlTemplate>
@@ -29,7 +31,7 @@
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
-                            <TextBlock Text="{x:Bind Position}" />
+                            <TextBlock Text="{x:Bind location}" />
                         </StackPanel>
                     </DataTemplate>
                 </maps:MapItemsControl.ItemTemplate>

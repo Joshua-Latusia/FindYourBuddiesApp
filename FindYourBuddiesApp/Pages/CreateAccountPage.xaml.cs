@@ -28,6 +28,7 @@ namespace FindYourBuddiesApp.Pages
         // This page needs connection with the server to either create account or check if username is available
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Utils.Connect(Utils.IP_ADRESS, Utils.Port);
             dynamic inlogRequest = new LoginRequest {username = "Admin", password = "Admin"};
             var packet = new Packet
             {
@@ -35,6 +36,7 @@ namespace FindYourBuddiesApp.Pages
                 Token = "",
                 Payload = JsonConvert.SerializeObject(inlogRequest)
             };
+            Utils.SendPacket(packet);
         }
 
         private void UsernameBox_OnTextChanged(object sender, TextChangedEventArgs e)

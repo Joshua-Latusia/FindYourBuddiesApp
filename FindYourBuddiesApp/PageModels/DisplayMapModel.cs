@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using Windows.Devices.Geolocation;
 using SharedCode;
 using SharedCodePortable;
-//using FindYourBuddiesApp.Data;
 
 namespace FindYourBuddiesApp.PageModels
 {
@@ -34,4 +32,6 @@ namespace FindYourBuddiesApp.PageModels
 
        
     }
+
+
 }

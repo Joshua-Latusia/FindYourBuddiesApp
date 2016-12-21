@@ -33,7 +33,7 @@
 
         <Grid Row="1">
 
-            <Frame Name="Frame" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            
 
             <SplitView Name="HamburgerSplitview" DisplayMode="CompactOverlay" RelativePanel.Below="HamburgerButton"
                        HorizontalAlignment="Left" CompactPaneLength="40" OpenPaneLength="175"
@@ -80,6 +80,10 @@
 
                 </SplitView.Pane>
 
+                <SplitView.Content>
+                    <Frame Name="Frame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Frame>
+                </SplitView.Content>
+                
             </SplitView>
 
         </Grid>

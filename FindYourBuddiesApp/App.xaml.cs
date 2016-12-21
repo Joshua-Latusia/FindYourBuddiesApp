@@ -11,7 +11,7 @@ namespace FindYourBuddiesApp
     /// <summary>
     ///     Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    internal sealed partial class App : Application
+    public sealed partial class App : Application
     {
         /// <summary>
         ///     Initializes the singleton application object.  This is the first line of authored code
@@ -53,7 +53,7 @@ namespace FindYourBuddiesApp
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
-                    rootFrame.Navigate(typeof(LoginPage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 // Ensure the current window is active
                 Window.Current.Activate();
             }

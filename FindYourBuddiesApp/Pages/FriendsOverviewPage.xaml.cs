@@ -1,4 +1,9 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+using SharedCodePortable;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -9,9 +14,34 @@ namespace FindYourBuddiesApp.Pages
     /// </summary>
     public sealed partial class FriendsOverviewPage : Page
     {
+        //TODO remove new 
+        public ObservableCollection<User> Friends = new ObservableCollection<User>();
+        public User LogedInUser;
+
+
         public FriendsOverviewPage()
         {
             InitializeComponent();
+        }
+
+        // Gets the loged in user and puts this as logedinuser and put all his friends in a list
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            LogedInUser = (User)e.Parameter;
+            if (LogedInUser != null) Friends = new ObservableCollection<User>(LogedInUser.Friends);
+            if (LogedInUser != null) FriendList.ItemsSource = LogedInUser.Friends;
+        }
+
+        private void FriendButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            // TODO Chage selected friend!
+            SelectedFriend.Text = "Ketameme";
+        }
+
+        // Navigates to the addfriend Page and also send the LogedInUser to the page so you can add the friend.
+        private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AddFriendPage),LogedInUser);
         }
     }
 }
