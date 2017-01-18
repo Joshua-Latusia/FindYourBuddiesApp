@@ -1,5 +1,6 @@
 ﻿using System;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
@@ -64,6 +65,21 @@ namespace FindYourBuddiesApp.Pages
                     Frame.Navigate(typeof(MainPage));
                 });
             }
+            else
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    var dialog = new ContentDialog()
+                    {
+                        Title = "Wrong credentials",
+                        MaxWidth = this.ActualWidth
+                    };
+                    dialog.PrimaryButtonText = "OK";
+
+                    var result = await dialog.ShowAsync();
+                });
+            }
+
         }
     }
 }

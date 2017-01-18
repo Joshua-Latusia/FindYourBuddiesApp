@@ -11,11 +11,7 @@ namespace FindYourFriendsServer
     {
         private static readonly string IP_ADRESS = "10.0.0.5";
 
-        public static string HashPass(string pass)
-        {
-            var sha512 = new SHA512CryptoServiceProvider();
-            return BitConverter.ToString(sha512.ComputeHash(Encoding.Default.GetBytes(pass))).Replace("-", "");
-        }
+       
 
         public static Packet SendPacket(Packet p)
         {

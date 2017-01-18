@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
+using SharedCode.Packets;
 using SharedCodePortable;
 using SharedCodePortable.Packets;
 
@@ -49,15 +50,32 @@ namespace FindYourFriendsServer
                 case EPacketType.LoginRequest:
                     var request = JsonConvert.DeserializeObject<LoginRequest>(p.Payload);
                     Console.WriteLine($"Login request from {request.username} with password {request.password}");
+                    var suc = UsersFile.ValidateAccount(request.username, request.password);
                     var resp = new LoginResponse()
                     {
-                        succes = true,
+                        succes = suc,
                         token = "xddsorandom"
                     };
 
                     Send(client, new Packet {PacketType = EPacketType.LoginResponse, Payload = JsonConvert.SerializeObject(resp)});
                     
                     break;
+
+                case EPacketType.CheckUsernameRequest:
+                    var checkUsernameRequest = JsonConvert.DeserializeObject<CheckUsernameRequest>(p.Payload);
+                    Console.WriteLine($"Checking username availability for {checkUsernameRequest.username}");
+
+                    var usernameAvailable = UsersFile.UsernameTaken(checkUsernameRequest.username);
+
+                    var checkUsernameResponse = new SuccesResponse()
+                    {
+                        succes = usernameAvailable
+                    };
+
+                    Send(client, new Packet {PacketType = EPacketType.SuccesResponse, Payload =  JsonConvert.SerializeObject(checkUsernameResponse)});
+
+                    break;
+
 
                 case EPacketType.NewAccountRequest:
 

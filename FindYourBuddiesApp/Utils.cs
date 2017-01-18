@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -16,6 +17,7 @@ namespace FindYourBuddiesApp
         public static int Port = 1337;
         private static Socket Socket;
         private static readonly ManualResetEvent _clientDone = new ManualResetEvent(false);
+
 
 
         // geeen idee wtf dit doet

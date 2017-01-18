@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Packet.cs" />
+    <Compile Include="Packets\CheckUsernameRequest.cs" />
     <Compile Include="Packets\LoginRequest.cs" />
     <Compile Include="Packets\LoginResponse.cs" />
     <Compile Include="Packets\NewAccountRequest.cs" />

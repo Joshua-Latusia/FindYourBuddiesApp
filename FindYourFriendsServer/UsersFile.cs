@@ -21,8 +21,21 @@ namespace FindYourFriendsServer
             var userList = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json")).Users;
             foreach (var user in userList)
                 if (user.UserName == username)
-                    return true;
+                    return false;
 
+            return true;
+        }
+
+        public static bool ValidateAccount(string username, string password)
+        {
+            var userList = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json")).Users;
+            foreach (var user in userList)
+            {
+                if (username == user.UserName && password == user.PasswordHash)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 

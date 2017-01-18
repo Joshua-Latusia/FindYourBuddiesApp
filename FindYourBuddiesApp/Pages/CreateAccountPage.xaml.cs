@@ -4,6 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
+using SharedCode.Packets;
 using SharedCodePortable;
 using SharedCodePortable.Packets;
 
@@ -28,20 +29,46 @@ namespace FindYourBuddiesApp.Pages
         // This page needs connection with the server to either create account or check if username is available
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Utils.Connect(Utils.IP_ADRESS, Utils.Port);
-            dynamic inlogRequest = new LoginRequest {username = "Admin", password = "Admin"};
-            var packet = new Packet
-            {
-                PacketType = EPacketType.LoginRequest,
-                Token = "",
-                Payload = JsonConvert.SerializeObject(inlogRequest)
-            };
-            Utils.SendPacket(packet);
+            
         }
 
         private void UsernameBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            //TODO check if name is available with server
+            var name = "Nan";
+            if (UsernameBox.Text != "")
+            {
+                name = UsernameBox.Text;
+            }
+            CheckUsernameRequest r = new CheckUsernameRequest()
+            {
+                username = name
+            };
+
+            Packet p = new Packet()
+            {
+                PacketType = EPacketType.CheckUsernameRequest, Payload =  JsonConvert.SerializeObject(r)
+            };
+
+            TcpClient.DoRequest(p, CheckUsernameRequestCallback);
+        }
+
+        private async void CheckUsernameRequestCallback(Packet obj)
+        {
+            var response = JsonConvert.DeserializeObject<LoginResponse>(obj.Payload);
+            if (response.succes)
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    NameAvailableTb.Text = "Name is Available";
+                });
+            }
+            else
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    NameAvailableTb.Text = "Name is taken";
+                });
+            }
         }
 
         private void PasswordConfirmBox_OnPasswordChanged(object sender, RoutedEventArgs e)
