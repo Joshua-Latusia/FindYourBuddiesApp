@@ -41,11 +41,13 @@
     <Compile Include="Packets\CheckUsernameRequest.cs" />
     <Compile Include="Packets\GetUserRequest.cs" />
     <Compile Include="Packets\GetUserResponse.cs" />
+    <Compile Include="Packets\SearchUsernameResponse.cs" />
     <Compile Include="Packets\LoginRequest.cs" />
     <Compile Include="Packets\LoginResponse.cs" />
     <Compile Include="Packets\NewAccountRequest.cs" />
     <Compile Include="Packets\RefreshRequest.cs" />
     <Compile Include="Packets\RefreshResponse.cs" />
+    <Compile Include="Packets\SearchUsernameRequest.cs" />
     <Compile Include="Packets\SuccesResponse.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

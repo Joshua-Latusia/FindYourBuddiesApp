@@ -26,6 +26,14 @@ namespace FindYourFriendsServer
             return true;
         }
 
+        public static List<User> GetUsersContaingString(string username)
+        {       
+
+            var userList = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json")).Users;
+            return userList.Where(u => u.UserName.Contains(username)).ToList();
+     
+        }
+
         public static bool ValidateAccount(string username, string password)
         {
             var userList = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json")).Users;

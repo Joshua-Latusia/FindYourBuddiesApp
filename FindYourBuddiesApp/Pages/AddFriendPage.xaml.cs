@@ -1,7 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
+using SharedCode.Packets;
 using SharedCodePortable;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -16,15 +20,18 @@ namespace FindYourBuddiesApp.Pages
 
         public User LogedInUser;
         //TODO remove new bla bla and put this in the searchrequest button.
-        public ObservableCollection<User> MatchingUsers = new ObservableCollection<User>();
+        public ObservableCollection<User> MatchingUsers;
         public AddFriendPage()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             LogedInUser = (User) e.Parameter;
+            MatchingUsers = new ObservableCollection<User>();
+           //MatchingUsers.Add(new User("asd","asd","asd","asd",18,true,new List<int>()));
         }
 
 
@@ -35,8 +42,42 @@ namespace FindYourBuddiesApp.Pages
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            //TODO send request with the requested username
+            if (UserNameTb.Text != "")
+            {
+                string user = UserNameTb.Text;
+                
+                SearchUsernameRequest r = new SearchUsernameRequest()
+                {
+                    username = user
+                };
+
+                Packet p = new Packet()
+                {
+                    PacketType = EPacketType.SearchUsernameRequest, Payload = JsonConvert.SerializeObject(r)
+                };
+
+                TcpClient.DoRequest(p, SearchUserCallback);
+            }
         }
+
+        private async void SearchUserCallback(Packet obj)
+        {
+            var response = JsonConvert.DeserializeObject<SearchUsernameResponse>(obj.Payload);
+            if (response.succes)
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    //MatchingUsers = new ObservableCollection<User>(response.users);
+                    MatchingUsers.Clear();
+                    foreach (var user in response.users)
+                    {
+                        MatchingUsers.Add(user);
+                    }
+                });
+            }
+        }
+
+
 
         private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
         {

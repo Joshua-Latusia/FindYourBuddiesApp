@@ -80,6 +80,22 @@ namespace FindYourFriendsServer
                     break;
 
 
+                case EPacketType.SearchUsernameRequest:
+                    var searchUsernameRequest = JsonConvert.DeserializeObject<SearchUsernameRequest>(p.Payload);
+                    Console.WriteLine($"Searching for friends with name {searchUsernameRequest.username}");
+
+                    var results = UsersFile.GetUsersContaingString(searchUsernameRequest.username);
+
+                    var searchUserResponse = new SearchUsernameResponse()
+                    {
+                        succes = true,
+                        users = results
+                    };
+
+                    Send(client, new Packet {PacketType = EPacketType.SearchUsernameResponse, Payload = JsonConvert.SerializeObject(searchUserResponse) });
+
+                    break;
+
                 case EPacketType.NewAccountRequest:
                     var newAcc = JsonConvert.DeserializeObject<NewAccountRequest>(p.Payload);
                     Console.WriteLine($"Creating new account with username {newAcc.username}");
