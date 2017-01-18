@@ -55,7 +55,9 @@ namespace FindYourFriendsServer
                     var resp = new LoginResponse()
                     {
                         succes = suc,
-                        token = "xddsorandom"
+                        token = "xddsorandom",
+                        username = request.username
+                        
                     };
 
                     Send(client, new Packet {PacketType = EPacketType.LoginResponse, Payload = JsonConvert.SerializeObject(resp)});
@@ -88,6 +90,14 @@ namespace FindYourFriendsServer
 
 
                 case EPacketType.RefreshRequest:
+                    break;
+
+                case EPacketType.GetUserRequest:
+                    var getAcc = JsonConvert.DeserializeObject<GetUserRequest>(p.Payload);
+                    Console.WriteLine($"getting account with username {getAcc.username}");
+                    var response = new GetUserResponse() {user = UsersFile.GetUser(getAcc.username)};
+                    var Packet = new Packet() {PacketType = EPacketType.GetUserResponse, Payload = JsonConvert.SerializeObject(response)};
+                    Send(client,Packet);
                     break;
 
                 default:

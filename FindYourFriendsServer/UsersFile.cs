@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using SharedCode;
+using SharedCodePortable;
 
 namespace FindYourFriendsServer
 {

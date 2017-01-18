@@ -4,5 +4,6 @@
     {
         public bool succes;
         public string token;
+        public string username;
     }
 }

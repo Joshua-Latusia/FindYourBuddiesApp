@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading;
 using SharedCode;
+using SharedCodePortable;
 
 namespace FindYourFriendsServer
 {

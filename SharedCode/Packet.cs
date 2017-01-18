@@ -11,6 +11,8 @@
     {
         LoginRequest,
         LoginResponse,
+        GetUserRequest,
+        GetUserResponse,
         RefreshRequest,
         RefreshResponse,
         NewAccountRequest,

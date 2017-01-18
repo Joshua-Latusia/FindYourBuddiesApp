@@ -46,7 +46,14 @@ namespace FindYourBuddiesApp
 
         public static Geopoint PointToGeopoint(Point point)
         {
-            return new Geopoint(new BasicGeoposition() { Latitude = point.Latitude, Longitude = point.Longitude });
+            if (point == null)
+            {
+                return new Geopoint(new BasicGeoposition() {Latitude = 4.7972440999999435, Longitude = 51.5840049 });
+            }
+            else
+            {
+                return new Geopoint(new BasicGeoposition() { Latitude = point.Latitude, Longitude = point.Longitude });
+            }          
         }
 
         public static Point GeopointToPoint(Geopoint geopoint)

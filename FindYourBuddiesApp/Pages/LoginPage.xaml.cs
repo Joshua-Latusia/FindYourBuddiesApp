@@ -4,6 +4,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
+using SharedCode.Packets;
 using SharedCodePortable;
 using SharedCodePortable.Packets;
 
@@ -60,10 +61,17 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<LoginResponse>(obj.Payload);
             if (response.succes)
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                {
-                    Frame.Navigate(typeof(MainPage));
-                });
+                //await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                //{
+                    GetUserRequest request = new GetUserRequest() {username = response.username};
+                    Packet p = new Packet()
+                    {
+                        PacketType = EPacketType.GetUserRequest,
+                        Payload = JsonConvert.SerializeObject(request)
+                    };
+
+                    TcpClient.DoRequest(p, GetUserResponseCallback);
+                //});
             }
             else
             {
@@ -80,6 +88,15 @@ namespace FindYourBuddiesApp.Pages
                 });
             }
 
+        }
+
+        private async void GetUserResponseCallback(Packet packet)
+        {
+            var response = JsonConvert.DeserializeObject<GetUserResponse>(packet.Payload);
+            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                Frame.Navigate(typeof(MapDisplayPage), response.user);
+            });
         }
     }
 }

@@ -6,8 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
-    xmlns:findYourBuddiesApp="using:FindYourBuddiesApp"
-    xmlns:Data="using:FindYourBuddiesApp"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -17,25 +15,7 @@
                          ZoomInteractionMode="GestureAndControl"
                          TiltInteractionMode="GestureAndControl"
                          RotateInteractionMode="GestureAndControl"
-                         Center="{x:Bind model.Points[0].location}"
-                         ZoomLevel="25">
-
-            <maps:MapItemsControl x:Name="MapItems" ItemsSource="{x:Bind model.Points}">
-                <maps:MapItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="findYourBuddiesApp:UwpUser">
-                        <StackPanel maps:MapControl.Location="{x:Bind location }">
-                            <Button Click="ButtonBase_OnClick" MaxWidth="50" MaxHeight="50">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <Image Source="../Assets/BuddyIcon.png" />
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                            <TextBlock Text="{x:Bind location}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </maps:MapItemsControl.ItemTemplate>
-            </maps:MapItemsControl>
-        </maps:MapControl>
+                         ZoomLevel="25">                         
+           </maps:MapControl>
     </Grid>
 </Page>

@@ -39,6 +39,7 @@ namespace FindYourBuddiesApp.Pages
             {
                 name = UsernameBox.Text;
             }
+
             CheckUsernameRequest r = new CheckUsernameRequest()
             {
                 username = name
