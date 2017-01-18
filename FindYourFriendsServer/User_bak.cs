@@ -2,7 +2,7 @@
 
 namespace SharedCode
 {
-    public class User
+    public class User_bak
     {
         public int UserId;
         public string FirstName { get; set; }
@@ -15,11 +15,11 @@ namespace SharedCode
         public List<int> Friends;
         //public Geopoint Location;
 
-        public User()
+        public User_bak()
         {
         }
 
-        public User(string first, string last, string user, string hash, int age, bool man, List<int> friends )
+        public User_bak(string first, string last, string user, string hash, int age, bool man, List<int> friends )
         {
             FirstName = first;
             LastName = last;

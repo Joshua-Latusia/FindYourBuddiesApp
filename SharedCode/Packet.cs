@@ -15,6 +15,8 @@
         RefreshResponse,
         NewAccountRequest,
         SuccesResponse,
-        CheckUsernameRequest
+        CheckUsernameRequest,
+        SearchUsernameRequest,
+        SearchUsernameResponse
     }
 }
