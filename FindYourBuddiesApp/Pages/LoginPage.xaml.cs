@@ -1,5 +1,10 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Newtonsoft.Json;
+using SharedCodePortable;
+using SharedCodePortable.Packets;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,14 +30,40 @@ namespace FindYourBuddiesApp.Pages
         //TODO add Login stuff
         private void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
+            string user = "Nan";
+            string pass = "Nan";
+            if (UserNameTb.Text != "" && PasswordTb.Password != "")
+            {
+                user = UserNameTb.Text;
+                pass = PasswordTb.Password;
+            }
+
             //DO login stuff checks etc.
 
-            Utils.Connect(Utils.IP_ADRESS, Utils.Port);
+            LoginRequest r = new LoginRequest()
+            {
+                username = user,
+                password = pass
+            };
+            Packet p = new Packet()
+            {PacketType = EPacketType.LoginRequest, Payload = JsonConvert.SerializeObject(r)};
 
-            LoginButton.Content = "Woop WOop";
+            TcpClient.DoRequest(p, LoginCallback);
 
 
             //this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private async void LoginCallback(Packet obj)
+        {
+            var response = JsonConvert.DeserializeObject<LoginResponse>(obj.Payload);
+            if (response.succes)
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    Frame.Navigate(typeof(MainPage));
+                });
+            }
         }
     }
 }

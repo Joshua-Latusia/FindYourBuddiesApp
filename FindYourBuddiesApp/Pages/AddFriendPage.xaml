@@ -56,7 +56,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         
-                        //Dele the items when databinding works in the template
+                        
                         <ListViewItem>
                             <Grid Margin="10,15">
                                 <Rectangle Width="1000"></Rectangle>

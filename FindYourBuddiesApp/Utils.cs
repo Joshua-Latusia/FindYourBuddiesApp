@@ -106,13 +106,8 @@ namespace FindYourBuddiesApp
                         response = Encoding.UTF8.GetString(e.Buffer, e.Offset, e.BytesTransferred);
 
                         //test
-                        response = JsonConvert.DeserializeObject<string>(response);
 
                         //response = response.Trim('\0');
-                    }
-                    else
-                    {
-                        response = e.SocketError.ToString();
                     }
 
                     _clientDone.Set();

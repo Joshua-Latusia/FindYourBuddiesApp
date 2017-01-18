@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
 using SharedCodePortable;
+using SharedCodePortable.Packets;
 
 namespace FindYourFriendsServer
 {
@@ -46,7 +47,16 @@ namespace FindYourFriendsServer
             switch (p.PacketType)
             {
                 case EPacketType.LoginRequest:
+                    var request = JsonConvert.DeserializeObject<LoginRequest>(p.Payload);
+                    Console.WriteLine($"Login request from {request.username} with password {request.password}");
+                    var resp = new LoginResponse()
+                    {
+                        succes = true,
+                        token = "xddsorandom"
+                    };
 
+                    Send(client, new Packet {PacketType = EPacketType.LoginResponse, Payload = JsonConvert.SerializeObject(resp)});
+                    
                     break;
 
                 case EPacketType.NewAccountRequest:
@@ -65,6 +75,7 @@ namespace FindYourFriendsServer
 
         public static void Send(TcpClient client, Packet p)
         {
+            Console.WriteLine($"Sending packet with type {p.PacketType}");
             var bytes = Encoding.Default.GetBytes(JsonConvert.SerializeObject(p));
             client.GetStream().Write(bytes, 0, bytes.Length);
             client.Close();
