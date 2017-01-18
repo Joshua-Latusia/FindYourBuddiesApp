@@ -34,6 +34,7 @@ namespace FindYourFriendsServer
                 if (username == user.UserName && password == user.PasswordHash)
                 {
                     return true;
+                    
                 }
             }
             return false;
@@ -55,7 +56,7 @@ namespace FindYourFriendsServer
         }
 
         public static void AddNewUser(string firstname, string lastname, string username, string password, int age,
-            bool man)
+            bool man, List<int> friends  )
         {
             var usersfile = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
 
@@ -69,7 +70,10 @@ namespace FindYourFriendsServer
                 LastName = lastname,
                 PasswordHash = password,
                 UserId = nextID,
-                UserName = username
+                UserName = username,
+                Friends = new List<int>()
+
+
             });
 
             File.WriteAllText("users.json", JsonConvert.SerializeObject(usersfile));

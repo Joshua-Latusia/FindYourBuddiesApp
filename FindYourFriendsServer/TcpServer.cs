@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -78,7 +79,11 @@ namespace FindYourFriendsServer
 
 
                 case EPacketType.NewAccountRequest:
+                    var newAcc = JsonConvert.DeserializeObject<NewAccountRequest>(p.Payload);
+                    Console.WriteLine($"Creating new account with username {newAcc.username}");
 
+                    UsersFile.AddNewUser(newAcc.firstname, newAcc.lastname, newAcc.username, newAcc.password, newAcc.age,
+                        newAcc.isman, new List<int>());
                     break;
 
 

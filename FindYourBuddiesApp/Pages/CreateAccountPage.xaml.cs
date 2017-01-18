@@ -19,7 +19,7 @@ namespace FindYourBuddiesApp.Pages
     {
         private bool _isPasswordMatching;
         //TODO set to false when username checking works
-        private readonly bool _isUsernameAvailable = true;
+        private bool _isUsernameAvailable = true;
 
         public CreateAccountPage()
         {
@@ -49,6 +49,7 @@ namespace FindYourBuddiesApp.Pages
                 PacketType = EPacketType.CheckUsernameRequest, Payload =  JsonConvert.SerializeObject(r)
             };
 
+            //TODO if crashing when inserting username comment this line
             TcpClient.DoRequest(p, CheckUsernameRequestCallback);
         }
 
@@ -60,6 +61,7 @@ namespace FindYourBuddiesApp.Pages
                 await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     NameAvailableTb.Text = "Name is Available";
+                    _isUsernameAvailable = true;
                 });
             }
             else
@@ -67,6 +69,7 @@ namespace FindYourBuddiesApp.Pages
                 await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     NameAvailableTb.Text = "Name is taken";
+                    _isUsernameAvailable = false;
                 });
             }
         }
@@ -129,7 +132,61 @@ namespace FindYourBuddiesApp.Pages
 
         private void CreateNewAccount()
         {
-            //TODO create acount here
+            NewAccountRequest r = new NewAccountRequest()
+            {
+                firstname = FirstNameBox.Text,
+                age = Int32.Parse(AgeBox.Text),
+                isman = ToggleSwitch.IsOn,
+                lastname = LastNameBox.Text,
+                username = UsernameBox.Text,
+                password = PasswordBox.Text,
+                friends = new List<User>()
+
+            };
+
+            Packet p = new Packet()
+            { PacketType = EPacketType.NewAccountRequest, Payload = JsonConvert.SerializeObject(r) };
+
+            TcpClient.DoRequest(p, NewAccountCallback);
+
+
+
+
+
+        }
+
+        private async void NewAccountCallback(Packet obj)
+        {
+            var response = JsonConvert.DeserializeObject<LoginResponse>(obj.Payload);
+            if (response.succes)
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+
+                    var dialog = new ContentDialog()
+                    {
+                        Title = "Created account",
+                        MaxWidth = this.ActualWidth
+                    };
+                    dialog.PrimaryButtonText = "OK";
+
+                    var result = await dialog.ShowAsync();
+                });
+            }
+            else
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    var dialog = new ContentDialog()
+                    {
+                        Title = "Account creation failed",
+                        MaxWidth = this.ActualWidth
+                    };
+                    dialog.PrimaryButtonText = "OK";
+
+                    var result = await dialog.ShowAsync();
+                });
+            }
         }
 
         private void BackToInlog_OnClick(object sender, RoutedEventArgs e)

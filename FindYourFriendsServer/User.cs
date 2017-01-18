@@ -1,4 +1,6 @@
-﻿namespace SharedCode
+﻿using System.Collections.Generic;
+
+namespace SharedCode
 {
     public class User
     {
@@ -10,13 +12,14 @@
         public int Age { get; set; }
         public bool IsMan { get; set; }
         public Point Location { get; set; }
+        public List<int> Friends;
         //public Geopoint Location;
 
         public User()
         {
         }
 
-        public User(string first, string last, string user, string hash, int age, bool man)
+        public User(string first, string last, string user, string hash, int age, bool man, List<int> friends )
         {
             FirstName = first;
             LastName = last;
@@ -24,6 +27,7 @@
             PasswordHash = hash;
             Age = age;
             IsMan = man;
+            Friends = friends;
         }
 
         

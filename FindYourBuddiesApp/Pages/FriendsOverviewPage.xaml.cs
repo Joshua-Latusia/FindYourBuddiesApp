@@ -28,7 +28,8 @@ namespace FindYourBuddiesApp.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             LogedInUser = (User)e.Parameter;
-            if (LogedInUser != null) Friends = new ObservableCollection<User>(LogedInUser.Friends);
+            //TODO fix it because friends are now IDS of users instead of friends
+            //if (LogedInUser != null) Friends = new ObservableCollection<User>(LogedInUser.Friends);
             if (LogedInUser != null) FriendList.ItemsSource = LogedInUser.Friends;
         }
 

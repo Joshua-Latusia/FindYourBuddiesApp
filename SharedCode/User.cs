@@ -5,15 +5,15 @@ namespace SharedCodePortable
 {
     public class User
     {
-        //TODO maybe friends should be friend objects without friends list otherwise inf loop???
-        public List<User> Friends = new List<User>();
+        // Friends are the ID of the friends.
+        public List<int> Friends;
         public int UserId;
 
         public User()
         {
         }
 
-        public User(string first, string last, string user, string hash, int age, bool man)
+        public User(string first, string last, string user, string hash, int age, bool man, List<int> friends )
         {
             FirstName = first;
             LastName = last;
@@ -21,6 +21,9 @@ namespace SharedCodePortable
             PasswordHash = hash;
             Age = age;
             IsMan = man;
+            Friends = friends;
+
+
         }
 
         public User(string v, Point location)
