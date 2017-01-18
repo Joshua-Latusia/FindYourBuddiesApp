@@ -53,6 +53,28 @@ namespace FindYourBuddiesApp.Pages
             TcpClient.DoRequest(p, CheckUsernameRequestCallback);
         }
 
+        private void CheckUsername()
+        {
+            var name = "Nan";
+            if (UsernameBox.Text != "")
+            {
+                name = UsernameBox.Text;
+            }
+            CheckUsernameRequest r = new CheckUsernameRequest()
+            {
+                username = name
+            };
+
+            Packet p = new Packet()
+            {
+                PacketType = EPacketType.CheckUsernameRequest,
+                Payload = JsonConvert.SerializeObject(r)
+            };
+
+            //TODO if crashing when inserting username comment this line
+            //TcpClient.DoRequest(p, CheckUsernameRequestCallback);
+        }
+
         private async void CheckUsernameRequestCallback(Packet obj)
         {
             var response = JsonConvert.DeserializeObject<LoginResponse>(obj.Payload);
@@ -99,6 +121,7 @@ namespace FindYourBuddiesApp.Pages
                 if (int.TryParse(AgeBox.Text, out parsedValue))
                     if ((parsedValue > 1) && (parsedValue < 150))
                     {
+                        CheckUsername();
                         CreateNewAccount();
                         Frame.Navigate(typeof(LoginPage));
                     }
