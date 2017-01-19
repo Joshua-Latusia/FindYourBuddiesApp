@@ -16,7 +16,7 @@ namespace FindYourBuddiesApp.Pages
     {
         //TODO remove new 
         public ObservableCollection<User> Friends = new ObservableCollection<User>();
-        public User LogedInUser;
+        private UwpUser user;
 
 
         public FriendsOverviewPage()
@@ -27,10 +27,10 @@ namespace FindYourBuddiesApp.Pages
         // Gets the loged in user and puts this as logedinuser and put all his friends in a list
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            LogedInUser = (User)e.Parameter;
+            user = (UwpUser)e.Parameter;
             //TODO fix it because friends are now IDS of users instead of friends
             //if (LogedInUser != null) Friends = new ObservableCollection<User>(LogedInUser.Friends);
-            if (LogedInUser != null) FriendList.ItemsSource = LogedInUser.Friends;
+            if (user != null) FriendList.ItemsSource = user.user.Friends;
         }
 
         private void FriendButton_OnClick(object sender, RoutedEventArgs e)
@@ -42,7 +42,7 @@ namespace FindYourBuddiesApp.Pages
         // Navigates to the addfriend Page and also send the LogedInUser to the page so you can add the friend.
         private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AddFriendPage),LogedInUser);
+            Frame.Navigate(typeof(AddFriendPage), user);
         }
     }
 }

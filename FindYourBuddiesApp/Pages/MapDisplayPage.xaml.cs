@@ -25,7 +25,7 @@ namespace FindYourBuddiesApp.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            user = new UwpUser((User)e.Parameter);
+            user = (UwpUser)e.Parameter;
             //MapHandler.DrawUser(Map,user,false,false);
         }
 
