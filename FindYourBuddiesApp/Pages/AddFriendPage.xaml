@@ -11,16 +11,16 @@
     mc:Ignorable="d">
 
     <Grid Background="Transparent">
-        
-        
-   
+
+
+
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"></RowDefinition>
 
             <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <Grid>
             <Rectangle Width="10000" Stretch="UniformToFill" />
             <StackPanel Orientation="Horizontal" Margin="25,0">
@@ -28,7 +28,7 @@
                 <Button Content="Search Name" Margin="20,0,10,0" Click="ButtonBase_OnClick"></Button>
             </StackPanel>
         </Grid>
-        
+
         <Grid Row="1">
             <ScrollViewer VerticalAlignment="Stretch">
                 <StackPanel Orientation="Vertical">
@@ -58,18 +58,18 @@
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                        
-                        
-                      
+
+
+
                     </ListView>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-               
+
         <Grid Row="2">
-            
+
             <Button Name="BackButton"  FontSize="24"  HorizontalAlignment="Center" Click="BackButton_OnClick" Content="Cancel Adding Friend"></Button>
         </Grid>
-        
+
     </Grid>
 </Page>

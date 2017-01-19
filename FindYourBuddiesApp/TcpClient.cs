@@ -13,21 +13,16 @@ namespace FindYourBuddiesApp
 {
     class TcpClient
     {
-        private static Socket _socket;
+        private Socket _socket;
         private static string IP = "127.0.0.1";
         private static int Port = 1337;
-        private static void Connect()
-        {
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            SocketAsyncEventArgs e = new SocketAsyncEventArgs
-            {
-                RemoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), Port)
-            };
-
-            _socket.ConnectAsync(e);
-        }
 
         public static void DoRequest(Packet p, Action<Packet> responseCallback)
+        {
+            new TcpClient().SendPacket(p, responseCallback);
+        }
+
+        public void SendPacket(Packet p, Action<Packet> responseCallback)
         {
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs
@@ -75,7 +70,7 @@ namespace FindYourBuddiesApp
 
     
 
-        private static void Disconnect()
+        private void Disconnect()
         {
             _socket.Shutdown(SocketShutdown.Both);
             _socket.Dispose();
