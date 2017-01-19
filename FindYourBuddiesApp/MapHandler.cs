@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Windows.Devices.Geolocation;
-using Windows.Foundation.Metadata;
 using Windows.Services.Maps;
 using Windows.Storage.Streams;
 using Windows.UI;
@@ -33,8 +31,8 @@ namespace FindYourBuddiesApp
             }
 
             MapIcon userIcon = null;
-            if(friend){ userIcon = new MapIcon() { Location = user.location, Title = user.user.UserName, Image = friendImage}; }
-            else      { userIcon = new MapIcon() { Location = user.location, Title = user.user.UserName, Image = userImage}; }
+            if(friend){ userIcon = new MapIcon { Location = user.location, Title = user.user.UserName, Image = friendImage}; }
+            else      { userIcon = new MapIcon { Location = user.location, Title = user.user.UserName, Image = userImage}; }
 
             map.MapElements.Add(userIcon);
         }

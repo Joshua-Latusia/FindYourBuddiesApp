@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -26,7 +26,7 @@ namespace FindYourBuddiesApp.Pages
         public AddFriendPage()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -49,12 +49,12 @@ namespace FindYourBuddiesApp.Pages
             {
                 string user = UserNameTb.Text;
                 
-                SearchUsernameRequest r = new SearchUsernameRequest()
+                SearchUsernameRequest r = new SearchUsernameRequest
                 {
                     username = user
                 };
 
-                Packet p = new Packet()
+                Packet p = new Packet
                 {
                     PacketType = EPacketType.SearchUsernameRequest, Payload = JsonConvert.SerializeObject(r)
                 };
@@ -68,7 +68,7 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<SearchUsernameResponse>(obj.Payload);
             if (response.succes)
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     //MatchingUsers = new ObservableCollection<User>(response.users);
                     MatchingUsers.Clear();
@@ -86,13 +86,13 @@ namespace FindYourBuddiesApp.Pages
         {
             if (MatchingUsers[ResultsList.SelectedIndex] != null)
             {
-                AddFriendRequest r = new AddFriendRequest()
+                AddFriendRequest r = new AddFriendRequest
                 {
                     //TODO change to logedInUser
                     logedinUser = user.user.UserName,
                     friendUsername = MatchingUsers[ResultsList.SelectedIndex].UserName
                 };
-                Packet p = new Packet()
+                Packet p = new Packet
                 {
                     PacketType = EPacketType.AddFriendRequest,
                     Payload = JsonConvert.SerializeObject(r)
@@ -101,10 +101,6 @@ namespace FindYourBuddiesApp.Pages
                 TcpClient.DoRequest(p, AddFriendCallBack);
                 //WHY CRASH HERE?
             }
-            else
-            {
-                //TODO add error 
-            }
         }
 
         private async void AddFriendCallBack(Packet obj)
@@ -112,12 +108,12 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<SuccesResponse>(obj.Payload);
             if (response.succes)
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    var dialog = new ContentDialog()
+                    var dialog = new ContentDialog
                     {
                         Title = "Friend added",
-                        MaxWidth = this.ActualWidth
+                        MaxWidth = ActualWidth
                     };
                     dialog.PrimaryButtonText = "OK";
 

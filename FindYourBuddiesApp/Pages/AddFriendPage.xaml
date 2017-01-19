@@ -15,17 +15,17 @@
         
    
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="0.5*" />
 
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="0.5*" />
         </Grid.RowDefinitions>
         
         <Grid>
             <Rectangle Width="10000" Stretch="UniformToFill" />
             <StackPanel Orientation="Horizontal" Margin="25,0">
-                <TextBox Name="UserNameTb" PlaceholderText="Friends Username" MinWidth="175" MaxWidth="250" MaxHeight="25" ></TextBox>
-                <Button Content="Search Name" Margin="20,0,10,0" Click="ButtonBase_OnClick"></Button>
+                <TextBox Name="UserNameTb" PlaceholderText="Friends Username" MinWidth="175" MaxWidth="250" MaxHeight="25" />
+                <Button Content="Search Name" Margin="20,0,10,0" Click="ButtonBase_OnClick" />
             </StackPanel>
         </Grid>
         
@@ -36,25 +36,25 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="sharedCodePortable:User">
                                 <Grid Margin="10,15">
-                                    <Rectangle Width="1000"></Rectangle>
+                                    <Rectangle Width="1000" />
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Username : "></TextBlock>
-                                            <TextBlock x:Name="UserBindTB" Text="{x:Bind UserName }" Margin="15,0,0,0"></TextBlock>
+                                            <TextBlock Text="Username : " />
+                                            <TextBlock x:Name="UserBindTB" Text="{x:Bind UserName }" Margin="15,0,0,0" />
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Firstname : "></TextBlock>
-                                            <TextBlock Text="{x:Bind FirstName }" Margin="15,0,0,0"></TextBlock>
+                                            <TextBlock Text="Firstname : " />
+                                            <TextBlock Text="{x:Bind FirstName }" Margin="15,0,0,0" />
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Lastname : "></TextBlock>
-                                            <TextBlock Text="{x:Bind LastName }" Margin="15,0,0,0"></TextBlock>
+                                            <TextBlock Text="Lastname : " />
+                                            <TextBlock Text="{x:Bind LastName }" Margin="15,0,0,0" />
                                         </StackPanel>
 
                                     </StackPanel>
-                                    <Button Name="AddFriendButton" FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" ></Button>
+                                    <Button Name="AddFriendButton" FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -68,7 +68,7 @@
                
         <Grid Row="2">
             
-            <Button Name="BackButton"  FontSize="24"  HorizontalAlignment="Center" Click="BackButton_OnClick" Content="Cancel Adding Friend"></Button>
+            <Button Name="BackButton"  FontSize="24"  HorizontalAlignment="Center" Click="BackButton_OnClick" Content="Cancel Adding Friend" />
         </Grid>
         
     </Grid>

@@ -8,13 +8,12 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Rectangle Width="10000" Stretch="UniformToFill"></Rectangle>
+        <Rectangle Width="10000" Stretch="UniformToFill" />
         <maps:MapControl x:Name="MyMap"
                          MapServiceToken="hXfoPb3UobMURPpymfd8~0KFlzLHFoGrO6NViSu2ltQ~AhzGBC78z3Ww6lQE6Df1AETSVLvCRCt7Q_WXIMPTYgiPpkVf6kNv0RYgId0cy5a0"
                          ZoomInteractionMode="GestureAndControl"
                          RotateInteractionMode ="GestureAndControl"
                          ZoomLevel =" 25"
-                         LandmarksVisible="True">
-        </maps:MapControl>
+                         LandmarksVisible="True" />
     </Grid>
 </Page>

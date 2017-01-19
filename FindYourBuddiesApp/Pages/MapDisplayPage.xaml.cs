@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
-using Windows.Devices.Geolocation;
-using Windows.Devices.PointOfService;
 using Windows.System.Threading;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using FindYourBuddiesApp.PageModels;
 using Newtonsoft.Json;
 using SharedCode.Packets;
 using SharedCodePortable;
@@ -48,11 +43,11 @@ namespace FindYourBuddiesApp.Pages
             TimeSpan delay = TimeSpan.FromSeconds(10);
 
             ThreadPoolTimer.CreateTimer(
-                (source) =>
+                source =>
                 {
-                    var RefreshRequest = JsonConvert.SerializeObject(new RefreshRequest() { user = user.user });
+                    var RefreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = user.user });
 
-                    var packet = new Packet() { PacketType = EPacketType.RefreshRequest, Payload = RefreshRequest };
+                    var packet = new Packet { PacketType = EPacketType.RefreshRequest, Payload = RefreshRequest };
 
                     TcpClient.DoRequest(packet, ResponseCallback);
                 }, delay);

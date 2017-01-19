@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -13,13 +13,15 @@ using SharedCodePortable;
 namespace FindYourBuddiesApp.Pages
 {
     /// <summary>
-    ///     An empty page that can be used on its own or navigated to within a Frame.
+    ///     This Page shows the friends of the loged in user
     /// </summary>
-    public sealed partial class FriendsOverviewPage : Page
+    public sealed partial class FriendsOverviewPage
     {
-        //TODO remove new 
+        
         public ObservableCollection<User> Friends;
-        private UwpUser user;
+        
+        // The loged in user.
+        private UwpUser _user;
 
 
         public FriendsOverviewPage()
@@ -27,44 +29,37 @@ namespace FindYourBuddiesApp.Pages
             InitializeComponent();
         }
 
-        // Gets the loged in user and puts this as logedinuser and put all his friends in a list
+        // Gets the user from previous page and puts this as _user and put all his friends in a list
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            
-            user = (UwpUser)e.Parameter;
+        {           
+            _user = (UwpUser)e.Parameter;
 
             Update();
-
-
-            //TODO fix it because friends are now IDS of users instead of friends
             Friends = new ObservableCollection<User>();
-            //if (LogedInUser != null) Friends = new ObservableCollection<User>(LogedInUser.Friends);
+                     
 
-            //UpdateFriends();
-            
-
-            if (user != null) FriendList.ItemsSource = user.user.Friends;
+            if (_user != null) FriendList.ItemsSource = _user.user.Friends;
         }
 
         private async void UpdateUser(Packet packet)
         {
-            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 var response = JsonConvert.DeserializeObject<GetUserResponse>(packet.Payload);
-            user = new UwpUser (response.user);
+            _user = new UwpUser (response.user);
             });
         }
 
         private async void UpdateFriends()
         {
-            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                RequestAllFriends r = new RequestAllFriends()
+                RequestAllFriends r = new RequestAllFriends
                 {
-                    idList = user.user.Friends
+                    idList = _user.user.Friends
                 };
 
-                Packet p = new Packet()
+                Packet p = new Packet
                 {
                     PacketType = EPacketType.RequestAllFriends,
                     Payload = JsonConvert.SerializeObject(r)
@@ -74,13 +69,12 @@ namespace FindYourBuddiesApp.Pages
             });
         }
 
-        private async void Update()
+        private void Update()
         {
            
-                GetUserRequest req = new GetUserRequest()
-                { username = user.user.UserName };
+                GetUserRequest req = new GetUserRequest { username = _user.user.UserName };
 
-                Packet packet = new Packet()
+                Packet packet = new Packet
                 {
                     PacketType = EPacketType.GetUserRequest,
                     Payload = JsonConvert.SerializeObject(req)
@@ -92,21 +86,21 @@ namespace FindYourBuddiesApp.Pages
 
         private void FriendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            // TODO Chage selected friend!
-            SelectedFriend.Text = "Ketameme";
+
+            SelectedFriend.Text = Friends[FriendList.SelectedIndex].UserName;
         }
 
         // Wat te doen als je alle vrienden terug krijgt
-        private async void GetFriendsResponseCallback(Packet packet)
+        private void GetFriendsResponseCallback(Packet packet)
         {
-            var response = JsonConvert.DeserializeObject<GetUserResponse>(packet.Payload);
+            //var response = JsonConvert.DeserializeObject<GetUserResponse>(packet.Payload);
 
-                RequestAllFriends r = new RequestAllFriends()
+                RequestAllFriends r = new RequestAllFriends
                 {
-                    idList = user.user.Friends
+                    idList = _user.user.Friends
                 };
 
-                Packet p = new Packet()
+                Packet p = new Packet
                 {
                     PacketType = EPacketType.RequestAllFriends,
                     Payload = JsonConvert.SerializeObject(r)
@@ -120,7 +114,7 @@ namespace FindYourBuddiesApp.Pages
         private async void ShowFriendsCallBack(Packet packet)
         {
             var response = JsonConvert.DeserializeObject<AllFriendsResponse>(packet.Payload);
-            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 foreach (var user in response.friends)
                 {
@@ -133,12 +127,20 @@ namespace FindYourBuddiesApp.Pages
         // Navigates to the addfriend Page and also send the LogedInUser to the page so you can add the friend.
         private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AddFriendPage), user);
+            Frame.Navigate(typeof(AddFriendPage), _user);
         }
 
+
+
+        // Calls on a webrequest for the current user to get the friends and show them in the overview using databinding and item template.
         private void RefreshButton_OnClick(object sender, RoutedEventArgs e)
         {
             UpdateFriends();
+        }
+
+        private void FriendList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedFriend.Text = Friends[FriendList.SelectedIndex].UserName;
         }
     }
 }
