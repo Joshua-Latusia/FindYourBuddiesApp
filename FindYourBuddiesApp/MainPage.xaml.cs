@@ -13,7 +13,7 @@ namespace FindYourBuddiesApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private UwpUser user;
+        private UwpUser _user;
         public MainPage()
         {
             InitializeComponent();
@@ -21,8 +21,8 @@ namespace FindYourBuddiesApp
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            user = new UwpUser((User)e.Parameter);
-            Frame.Navigate(typeof(MapDisplayPage), user);
+            _user = new UwpUser((User)e.Parameter);
+            Frame.Navigate(typeof(MapDisplayPage), _user);
             Map.IsSelected = true;
         }
 
@@ -30,13 +30,13 @@ namespace FindYourBuddiesApp
         {
             if (Map.IsSelected)
             {
-                Frame.Navigate(typeof(MapDisplayPage),user);
+                Frame.Navigate(typeof(MapDisplayPage),_user);
                 BackButton.Visibility = Visibility.Collapsed;
                 PageName.Text = "Find your buddies!";
             }
             else if (Friends.IsSelected)
             {
-                Frame.Navigate(typeof(FriendsOverviewPage),user);
+                Frame.Navigate(typeof(FriendsOverviewPage),_user);
                 BackButton.Visibility = Visibility.Visible;
                 PageName.Text = "All your buddies!";
             }
@@ -62,7 +62,7 @@ namespace FindYourBuddiesApp
 
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MapDisplayPage),user);
+            Frame.Navigate(typeof(MapDisplayPage),_user);
             Map.IsSelected = true;
             BackButton.Visibility = Visibility.Collapsed;
             PageName.Text = "Find your buddies!";

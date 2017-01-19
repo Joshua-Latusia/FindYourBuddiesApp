@@ -38,7 +38,7 @@ namespace FindYourBuddiesApp.Pages
             Friends = new ObservableCollection<User>();
                      
 
-            if (_user != null) FriendList.ItemsSource = _user.user.Friends;
+            if (_user != null) FriendList.ItemsSource = _user.User.Friends;
         }
 
         private async void UpdateUser(Packet packet)
@@ -56,7 +56,7 @@ namespace FindYourBuddiesApp.Pages
             {
                 RequestAllFriends r = new RequestAllFriends
                 {
-                    idList = _user.user.Friends
+                    idList = _user.User.Friends
                 };
 
                 Packet p = new Packet
@@ -72,7 +72,7 @@ namespace FindYourBuddiesApp.Pages
         private void Update()
         {
            
-                GetUserRequest req = new GetUserRequest { username = _user.user.UserName };
+                GetUserRequest req = new GetUserRequest { username = _user.User.UserName };
 
                 Packet packet = new Packet
                 {
@@ -97,7 +97,7 @@ namespace FindYourBuddiesApp.Pages
 
                 RequestAllFriends r = new RequestAllFriends
                 {
-                    idList = _user.user.Friends
+                    idList = _user.User.Friends
                 };
 
                 Packet p = new Packet
