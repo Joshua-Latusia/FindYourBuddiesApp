@@ -104,6 +104,15 @@ namespace FindYourFriendsServer
                         newAcc.isman, new List<int>());
                     break;
 
+                    // Adds userID of friend to the main user
+                case EPacketType.AddFriendRequest:
+                    var addFriend = JsonConvert.DeserializeObject<AddFriendRequest>(p.Payload);
+                    Console.WriteLine($"Adding {addFriend.friendUsername} To {addFriend.logedinUser} as friend");
+
+                    UsersFile.AddFriendToUser(addFriend.logedinUser,addFriend.friendUsername);
+                    var addFriendResponse = new SuccesResponse() {succes = true};
+                    Send(client, new Packet {PacketType = EPacketType.SuccesResponse, Payload = JsonConvert.SerializeObject(addFriendResponse)});
+                    break;
 
                 case EPacketType.RefreshRequest:
                     break;

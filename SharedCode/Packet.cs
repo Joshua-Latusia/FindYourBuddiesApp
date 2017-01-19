@@ -19,6 +19,7 @@
         SuccesResponse,
         CheckUsernameRequest,
         SearchUsernameRequest,
-        SearchUsernameResponse
+        SearchUsernameResponse,
+        AddFriendRequest
     }
 }

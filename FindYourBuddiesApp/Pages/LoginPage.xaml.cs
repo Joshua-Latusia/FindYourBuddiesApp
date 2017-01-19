@@ -95,7 +95,7 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<GetUserResponse>(packet.Payload);
             await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                Frame.Navigate(typeof(MapDisplayPage), response.user);
+                Frame.Navigate(typeof(MainPage), response.user);
             });
         }
     }

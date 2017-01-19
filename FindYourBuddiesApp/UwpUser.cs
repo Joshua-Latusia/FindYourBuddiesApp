@@ -16,7 +16,7 @@ namespace FindYourBuddiesApp
         public UwpUser(User user)
         {
             this.user = user;
-            location = Utils.PointToGeopoint(user.Position);
+            //location = Utils.PointToGeopoint(user.Position);
         }
 
         public void UpdateLocation()

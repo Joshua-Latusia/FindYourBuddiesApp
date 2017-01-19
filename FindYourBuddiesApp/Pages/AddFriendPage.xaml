@@ -40,7 +40,7 @@
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Username : "></TextBlock>
-                                            <TextBlock Text="{x:Bind UserName }" Margin="15,0,0,0"></TextBlock>
+                                            <TextBlock x:Name="UserBindTB" Text="{x:Bind UserName }" Margin="15,0,0,0"></TextBlock>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal">

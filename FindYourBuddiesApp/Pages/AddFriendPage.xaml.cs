@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
 using SharedCode.Packets;
 using SharedCodePortable;
+using SharedCodePortable.Packets;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -81,7 +82,46 @@ namespace FindYourBuddiesApp.Pages
 
         private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //TODO adds the clickedPerson
+            if (MatchingUsers[ResultsList.SelectedIndex] != null)
+            {
+                AddFriendRequest r = new AddFriendRequest()
+                {
+                    //TODO change to logedInUser
+                    logedinUser = "Admin",
+                    friendUsername = MatchingUsers[ResultsList.SelectedIndex].UserName
+                };
+                Packet p = new Packet()
+                {
+                    PacketType = EPacketType.AddFriendRequest,
+                    Payload = JsonConvert.SerializeObject(r)
+                };
+
+                TcpClient.DoRequest(p, AddFriendCallBack);
+                //WHY CRASH HERE?
+            }
+            else
+            {
+                //TODO add error 
+            }
+        }
+
+        private async void AddFriendCallBack(Packet obj)
+        {
+            var response = JsonConvert.DeserializeObject<SuccesResponse>(obj.Payload);
+            if (response.succes)
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    var dialog = new ContentDialog()
+                    {
+                        Title = "Friend added",
+                        MaxWidth = this.ActualWidth
+                    };
+                    dialog.PrimaryButtonText = "OK";
+
+                    var result = await dialog.ShowAsync();
+                });
+            }
         }
     }
 }

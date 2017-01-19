@@ -49,6 +49,7 @@
     <Compile Include="Packets\RefreshResponse.cs" />
     <Compile Include="Packets\SearchUsernameRequest.cs" />
     <Compile Include="Packets\SuccesResponse.cs" />
+    <Compile Include="Packets\AddFriendRequest.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />

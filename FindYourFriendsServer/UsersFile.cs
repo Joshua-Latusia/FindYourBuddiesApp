@@ -34,6 +34,50 @@ namespace FindYourFriendsServer
      
         }
 
+        //TODO test
+        public static void RemoveUser(string username)
+        {
+            int i = 0;
+            var usersfile = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
+            foreach (var user in usersfile.Users)
+            {
+
+                if (user.UserName == username)
+                {
+                    usersfile.Users.RemoveAt(i);
+                    File.WriteAllText("users.json", JsonConvert.SerializeObject(usersfile));
+                    return;
+                }
+                i++;
+            }
+
+        }
+
+        //TODO test
+        public static void AddFriendToUser(string username, string friend)
+        {
+            if (GetUser(username) != null)
+            {
+                // get the user from the userfile and the friends id 
+                // Adds the friend id to the user and updates the user.
+                var usersfile = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
+                var user  = GetUser(username);
+                var friendID = GetUser(friend).UserId;
+                //TODO check if friends isnt already in the list
+
+                RemoveUser(username);
+                var updatedFile =  JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
+
+                if (user.Friends == null)
+                {
+                    user.Friends = new List<int>();
+                }
+                user.Friends.Add(friendID);
+                updatedFile.Users.Add(user);
+                File.WriteAllText("users.json", JsonConvert.SerializeObject(updatedFile));
+            }
+        }
+
         public static bool ValidateAccount(string username, string password)
         {
             var userList = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json")).Users;
