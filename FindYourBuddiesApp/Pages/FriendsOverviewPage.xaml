@@ -11,51 +11,51 @@
     <Grid Background="Transparent">
         
          <Grid.RowDefinitions>
-             <RowDefinition Height="*"></RowDefinition>
-             <RowDefinition Height="Auto"></RowDefinition>
+             <RowDefinition Height="*" />
+             <RowDefinition Height="Auto" />
          </Grid.RowDefinitions>
         <Grid>
-    <Rectangle Width="10000" Stretch="UniformToFill"></Rectangle>
-        <ScrollViewer VerticalAlignment="Stretch">
+    <Rectangle Width="10000" Stretch="UniformToFill" />
+            <ScrollViewer VerticalAlignment="Stretch">
         <StackPanel Orientation="Vertical">
-            <ListView x:Name="FriendList" ItemsSource="{x:Bind Friends}">
+            <ListView x:Name="FriendList" ItemsSource="{x:Bind Friends}" SelectionChanged="FriendList_OnSelectionChanged">
                 <ListView.ItemTemplate >
                     <DataTemplate x:DataType="sharedCodePortable:User">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             
                             <Grid Column="0">
-                                <Button Name="FriendButton" Width="100" Background="Aqua" Click="FriendButton_OnClick"></Button>
+                                <Button Name="FriendButton" Width="100" Background="Aqua" Click="FriendButton_OnClick" />
                             </Grid>
                             
                             <Grid Column="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 
                                 <Grid Row="0">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Name:"></TextBlock>
-                                        <TextBlock Text="{x:Bind FirstName}"></TextBlock>
+                                        <TextBlock Text="Name: " />
+                                        <TextBlock Text="{x:Bind FirstName}" />
                                     </StackPanel>
                                 </Grid>
 
                                 <Grid Row="1">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="UserName"></TextBlock>
-                                        <TextBlock Text="{x:Bind UserName}"></TextBlock>
+                                        <TextBlock Text="UserName: " />
+                                        <TextBlock Text="{x:Bind UserName}" />
                                     </StackPanel>
                                 </Grid>
 
                                 <Grid Row="2">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Distance"></TextBlock>
-                                        <TextBlock Text="13.37 KM"></TextBlock>
+                                        <TextBlock Text="Distance: " />
+                                        <TextBlock Text="13.37 KM" />
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -63,214 +63,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 
-                <ListViewItem>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Column="0">
-                            <Button Width="100" Background="Aqua"></Button>
-                        </Grid>
-
-                        <Grid Column="1" Margin="20,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Row="0">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Name:"></TextBlock>
-                                    <TextBlock Text="Abraham"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="1">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="UserName"></TextBlock>
-                                    <TextBlock Text="Abra1337"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="2">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Distance"></TextBlock>
-                                    <TextBlock Text="13.37 KM"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Column="0">
-                            <Button Width="100" Background="Aqua"></Button>
-                        </Grid>
-
-                        <Grid Column="1" Margin="20,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Row="0">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Name:"></TextBlock>
-                                    <TextBlock Text="Abraham"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="1">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="UserName"></TextBlock>
-                                    <TextBlock Text="Abra1337"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="2">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Distance"></TextBlock>
-                                    <TextBlock Text="13.37 KM"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Column="0">
-                            <Button Width="100" Background="Aqua"></Button>
-                        </Grid>
-
-                        <Grid Column="1" Margin="20,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Row="0">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Name:"></TextBlock>
-                                    <TextBlock Text="Abraham"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="1">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="UserName"></TextBlock>
-                                    <TextBlock Text="Abra1337"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="2">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Distance"></TextBlock>
-                                    <TextBlock Text="13.37 KM"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Column="0">
-                            <Button Width="100" Background="Aqua"></Button>
-                        </Grid>
-
-                        <Grid Column="1" Margin="20,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Row="0">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Name:"></TextBlock>
-                                    <TextBlock Text="Abraham"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="1">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="UserName"></TextBlock>
-                                    <TextBlock Text="Abra1337"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="2">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Distance"></TextBlock>
-                                    <TextBlock Text="13.37 KM"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </ListViewItem>
-                <ListViewItem>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Column="0">
-                            <Button Width="100" Background="Aqua"></Button>
-                        </Grid>
-
-                        <Grid Column="1" Margin="20,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Row="0">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Name:"></TextBlock>
-                                    <TextBlock Text="Abraham"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="1">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="UserName"></TextBlock>
-                                    <TextBlock Text="Abra1337"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-
-                            <Grid Row="2">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                    <TextBlock Text="Distance"></TextBlock>
-                                    <TextBlock Text="13.37 KM"></TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </ListViewItem>
+                
                 
                 
                
@@ -283,11 +76,11 @@
         
             <Grid Row="1">
                 <Grid Background="NavajoWhite">
-                    
-                    <TextBlock Name="SelectTb" Text="Selected: " FontSize="24" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock Name="SelectedFriend" Text="None" HorizontalAlignment="Center" FontSize="24" ></TextBlock>
-                <Button Name="AddFriendButton" FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" ></Button>
-            </Grid>
+                <Button Name="RefreshButton" FontFamily="Segoe MDL2 Assets" FontSize="24" Content="&#xE895;" HorizontalAlignment="Left" Click="RefreshButton_OnClick" />
+                    <TextBlock Name="SelectTb" Text="Selected: " FontSize="24" HorizontalAlignment="Left" Margin="45,0" />
+                    <TextBlock Name="SelectedFriend" Text="None" HorizontalAlignment="Center" FontSize="24" />
+                    <Button Name="AddFriendButton" FontFamily="Segoe MDL2 Assets"  FontSize="24" Content="&#xE710;" HorizontalAlignment="Right" Click="AddFriendButton_OnClick" />
+                </Grid>
             </Grid>
             
         </Grid>

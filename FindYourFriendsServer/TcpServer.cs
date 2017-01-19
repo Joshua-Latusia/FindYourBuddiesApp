@@ -68,7 +68,7 @@ namespace FindYourFriendsServer
                     var checkUsernameRequest = JsonConvert.DeserializeObject<CheckUsernameRequest>(p.Payload);
                     Console.WriteLine($"Checking username availability for {checkUsernameRequest.username}");
 
-                    var usernameAvailable = UsersFile.UsernameTaken(checkUsernameRequest.username);
+                    var usernameAvailable = UsersFile.IsUsernameAvaialable(checkUsernameRequest.username);
 
                     var checkUsernameResponse = new SuccesResponse()
                     {
@@ -119,13 +119,13 @@ namespace FindYourFriendsServer
                     Console.WriteLine($"Resfresh request from: {refresh.user.UserName}");
                     UsersFile.UpdateUser(refresh.user);     
                     
-                    Send(client, new Packet() {PacketType = EPacketType.RefreshResponse, Payload = JsonConvert.SerializeObject(new AllFriendsResponse() {friends = UsersFile.GetAllFriendsByID(refresh.user.Friends) })});
+                    Send(client, new Packet() {PacketType = EPacketType.RefreshResponse, Payload = JsonConvert.SerializeObject(new AllFriendsResponse() {friends = UsersFile.GetAllFriendsById(refresh.user.Friends) })});
                     break;
 
                 case EPacketType.RequestAllFriends:
                     var idList = JsonConvert.DeserializeObject<RequestAllFriends>(p.Payload);
                     Console.WriteLine("Requesting friendslist...");
-                    Send(client, new Packet {PacketType = EPacketType.AllFriendsResponse, Payload = JsonConvert.SerializeObject(new AllFriendsResponse {friends = UsersFile.GetAllFriendsByID(idList.idList)})});
+                    Send(client, new Packet {PacketType = EPacketType.AllFriendsResponse, Payload = JsonConvert.SerializeObject(new AllFriendsResponse {friends = UsersFile.GetAllFriendsById(idList.idList)})});
 
 
                     break;

@@ -1,6 +1,5 @@
 ﻿using System;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
@@ -42,13 +41,12 @@ namespace FindYourBuddiesApp.Pages
 
             //DO login stuff checks etc.
 
-            LoginRequest r = new LoginRequest()
+            LoginRequest r = new LoginRequest
             {
                 username = user,
                 password = pass
             };
-            Packet p = new Packet()
-            {PacketType = EPacketType.LoginRequest, Payload = JsonConvert.SerializeObject(r)};
+            Packet p = new Packet {PacketType = EPacketType.LoginRequest, Payload = JsonConvert.SerializeObject(r)};
 
             TcpClient.DoRequest(p, LoginCallback);
 
@@ -63,8 +61,8 @@ namespace FindYourBuddiesApp.Pages
             {
                 //await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 //{
-                    GetUserRequest request = new GetUserRequest() {username = response.username};
-                    Packet p = new Packet()
+                    GetUserRequest request = new GetUserRequest {username = response.username};
+                    Packet p = new Packet
                     {
                         PacketType = EPacketType.GetUserRequest,
                         Payload = JsonConvert.SerializeObject(request)
@@ -75,12 +73,12 @@ namespace FindYourBuddiesApp.Pages
             }
             else
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    var dialog = new ContentDialog()
+                    var dialog = new ContentDialog
                     {
                         Title = "Wrong credentials",
-                        MaxWidth = this.ActualWidth
+                        MaxWidth = ActualWidth
                     };
                     dialog.PrimaryButtonText = "OK";
 
@@ -93,7 +91,7 @@ namespace FindYourBuddiesApp.Pages
         private async void GetUserResponseCallback(Packet packet)
         {
             var response = JsonConvert.DeserializeObject<GetUserResponse>(packet.Payload);
-            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 Frame.Navigate(typeof(MainPage), response.user);
             });

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -40,12 +41,12 @@ namespace FindYourBuddiesApp.Pages
                 name = UsernameBox.Text;
             }
 
-            CheckUsernameRequest r = new CheckUsernameRequest()
+            CheckUsernameRequest r = new CheckUsernameRequest
             {
                 username = name
             };
 
-            Packet p = new Packet()
+            Packet p = new Packet
             {
                 PacketType = EPacketType.CheckUsernameRequest, Payload =  JsonConvert.SerializeObject(r)
             };
@@ -61,12 +62,12 @@ namespace FindYourBuddiesApp.Pages
             {
                 name = UsernameBox.Text;
             }
-            CheckUsernameRequest r = new CheckUsernameRequest()
+            CheckUsernameRequest r = new CheckUsernameRequest
             {
                 username = name
             };
 
-            Packet p = new Packet()
+            Packet p = new Packet
             {
                 PacketType = EPacketType.CheckUsernameRequest,
                 Payload = JsonConvert.SerializeObject(r)
@@ -81,7 +82,7 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<LoginResponse>(obj.Payload);
             if (response.succes)
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     NameAvailableTb.Text = "Name is Available";
                     _isUsernameAvailable = true;
@@ -89,7 +90,7 @@ namespace FindYourBuddiesApp.Pages
             }
             else
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     NameAvailableTb.Text = "Name is taken";
                     _isUsernameAvailable = false;
@@ -156,7 +157,7 @@ namespace FindYourBuddiesApp.Pages
 
         private void CreateNewAccount()
         {
-            NewAccountRequest r = new NewAccountRequest()
+            NewAccountRequest r = new NewAccountRequest
             {
                 firstname = FirstNameBox.Text,
                 age = Int32.Parse(AgeBox.Text),
@@ -168,8 +169,7 @@ namespace FindYourBuddiesApp.Pages
 
             };
 
-            Packet p = new Packet()
-            { PacketType = EPacketType.NewAccountRequest, Payload = JsonConvert.SerializeObject(r) };
+            Packet p = new Packet { PacketType = EPacketType.NewAccountRequest, Payload = JsonConvert.SerializeObject(r) };
 
             TcpClient.DoRequest(p, NewAccountCallback);
 
@@ -184,13 +184,13 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<LoginResponse>(obj.Payload);
             if (response.succes)
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
 
-                    var dialog = new ContentDialog()
+                    var dialog = new ContentDialog
                     {
                         Title = "Created account",
-                        MaxWidth = this.ActualWidth
+                        MaxWidth = ActualWidth
                     };
                     dialog.PrimaryButtonText = "OK";
 
@@ -199,12 +199,12 @@ namespace FindYourBuddiesApp.Pages
             }
             else
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    var dialog = new ContentDialog()
+                    var dialog = new ContentDialog
                     {
                         Title = "Account creation failed",
-                        MaxWidth = this.ActualWidth
+                        MaxWidth = ActualWidth
                     };
                     dialog.PrimaryButtonText = "OK";
 

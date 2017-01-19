@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -26,7 +26,7 @@ namespace FindYourBuddiesApp.Pages
         public AddFriendPage()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -34,7 +34,7 @@ namespace FindYourBuddiesApp.Pages
             //LogedInUser = (User) e.Parameter;
             user = (UwpUser)e.Parameter;
             MatchingUsers = new ObservableCollection<User>();
-           //MatchingUsers.Add(new User("asd","asd","asd","asd",18,true,new List<int>()));
+          
         }
 
 
@@ -49,12 +49,12 @@ namespace FindYourBuddiesApp.Pages
             {
                 string user = UserNameTb.Text;
                 
-                SearchUsernameRequest r = new SearchUsernameRequest()
+                SearchUsernameRequest r = new SearchUsernameRequest
                 {
                     username = user
                 };
 
-                Packet p = new Packet()
+                Packet p = new Packet
                 {
                     PacketType = EPacketType.SearchUsernameRequest, Payload = JsonConvert.SerializeObject(r)
                 };
@@ -68,7 +68,7 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<SearchUsernameResponse>(obj.Payload);
             if (response.succes)
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     //MatchingUsers = new ObservableCollection<User>(response.users);
                     MatchingUsers.Clear();
@@ -82,28 +82,41 @@ namespace FindYourBuddiesApp.Pages
 
 
 
-        private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
+        private async void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (MatchingUsers[ResultsList.SelectedIndex] != null)
+            if (ResultsList.SelectedIndex > 0)
             {
-                AddFriendRequest r = new AddFriendRequest()
+                if (MatchingUsers[ResultsList.SelectedIndex] != null)
                 {
-                    //TODO change to logedInUser
-                    logedinUser = user.user.UserName,
-                    friendUsername = MatchingUsers[ResultsList.SelectedIndex].UserName
-                };
-                Packet p = new Packet()
-                {
-                    PacketType = EPacketType.AddFriendRequest,
-                    Payload = JsonConvert.SerializeObject(r)
-                };
+                    AddFriendRequest r = new AddFriendRequest
+                    {
+                        //TODO change to logedInUser
+                        logedinUser = user.user.UserName,
+                        friendUsername = MatchingUsers[ResultsList.SelectedIndex].UserName
+                    };
+                    Packet p = new Packet
+                    {
+                        PacketType = EPacketType.AddFriendRequest,
+                        Payload = JsonConvert.SerializeObject(r)
+                    };
 
-                TcpClient.DoRequest(p, AddFriendCallBack);
-                //WHY CRASH HERE?
+                    TcpClient.DoRequest(p, AddFriendCallBack);
+                    
+                }
             }
             else
             {
-                //TODO add error 
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                 {
+                     var dialog = new ContentDialog
+                     {
+                         Title = "No user selected",
+                         MaxWidth = ActualWidth
+                     };
+                     dialog.PrimaryButtonText = "OK";
+
+                     var result = await dialog.ShowAsync();
+                 });
             }
         }
 
@@ -112,12 +125,12 @@ namespace FindYourBuddiesApp.Pages
             var response = JsonConvert.DeserializeObject<SuccesResponse>(obj.Payload);
             if (response.succes)
             {
-                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    var dialog = new ContentDialog()
+                    var dialog = new ContentDialog
                     {
                         Title = "Friend added",
-                        MaxWidth = this.ActualWidth
+                        MaxWidth = ActualWidth
                     };
                     dialog.PrimaryButtonText = "OK";
 

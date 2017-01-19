@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -48,12 +47,9 @@ namespace FindYourBuddiesApp
         {
             if (point == null)
             {
-                return new Geopoint(new BasicGeoposition() {Latitude = 51.5840049, Longitude = 4.7972440999999435 });
+                return new Geopoint(new BasicGeoposition {Latitude = 51.5840049, Longitude = 4.7972440999999435 });
             }
-            else
-            {
-                return new Geopoint(new BasicGeoposition() { Latitude = point.Latitude, Longitude = point.Longitude });
-            }          
+            return new Geopoint(new BasicGeoposition { Latitude = point.Latitude, Longitude = point.Longitude });
         }
 
         public static Point GeopointToPoint(Geopoint geopoint)
