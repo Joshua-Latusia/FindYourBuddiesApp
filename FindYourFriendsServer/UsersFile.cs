@@ -80,7 +80,6 @@ namespace FindYourFriendsServer
                 // Adds the friend id to the user and updates the user.
                 var user  = GetUser(username);
                 var friendID = GetUser(friend).UserId;
-                //TODO check if friends isnt already in the list
 
                 // if the user already has the friend ID or its his own ID and then it doens't add anything
                 if (user.Friends.Contains(friendID) || user.UserId == friendID)

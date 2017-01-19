@@ -21,7 +21,7 @@ namespace FindYourBuddiesApp.Pages
 
         // public User LogedInUser;
         private UwpUser _user;
-        //TODO remove new bla bla and put this in the searchrequest button.
+        
         public ObservableCollection<User> MatchingUsers;
         public AddFriendPage()
         {
@@ -90,7 +90,6 @@ namespace FindYourBuddiesApp.Pages
                 {
                     AddFriendRequest r = new AddFriendRequest
                     {
-                        //TODO change to logedInUser
                         logedinUser = _user.User.UserName,
                         friendUsername = MatchingUsers[ResultsList.SelectedIndex].UserName
                     };
