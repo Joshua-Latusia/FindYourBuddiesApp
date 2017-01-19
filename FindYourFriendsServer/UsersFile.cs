@@ -50,7 +50,7 @@ namespace FindYourFriendsServer
             return friends;
         }
 
-        //TODO test
+        
         public static void RemoveUser(string username)
         {
             int i = 0;
@@ -114,15 +114,6 @@ namespace FindYourFriendsServer
             var userfile = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
             userfile.Users.Add(user);
             File.WriteAllText("users.json", JsonConvert.SerializeObject(userfile));
-        }
-
-        public static void UpdateFriends(User user)
-        {
-            var userfile = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
-            foreach (int id in user.Friends)
-            {
-                
-            }
         }
 
         public static void AddNewUser(User user)
