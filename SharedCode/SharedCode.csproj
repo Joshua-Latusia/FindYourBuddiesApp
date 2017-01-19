@@ -48,7 +48,6 @@
     <Compile Include="Packets\LoginResponse.cs" />
     <Compile Include="Packets\NewAccountRequest.cs" />
     <Compile Include="Packets\RefreshRequest.cs" />
-    <Compile Include="Packets\RefreshResponse.cs" />
     <Compile Include="Packets\SearchUsernameRequest.cs" />
     <Compile Include="Packets\SuccesResponse.cs" />
     <Compile Include="Packets\AddFriendRequest.cs" />
