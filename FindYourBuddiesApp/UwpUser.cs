@@ -21,6 +21,12 @@ namespace FindYourBuddiesApp
             geolocate();
         }
 
+        public UwpUser(User user, string s)
+        {
+            this.user = user;
+            location = Utils.PointToGeopoint(user.Position);
+        }
+
         public async void geolocate()
         {
             GeolocationAccessStatus accessStatus = await Geolocator.RequestAccessAsync();

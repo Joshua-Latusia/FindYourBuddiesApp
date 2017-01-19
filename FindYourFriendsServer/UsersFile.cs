@@ -110,7 +110,19 @@ namespace FindYourFriendsServer
 
         public static void UpdateUser(User user)
         {
-            //TODO think of this
+            RemoveUser(user.UserName);
+            var userfile = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
+            userfile.Users.Add(user);
+            File.WriteAllText("users.json", JsonConvert.SerializeObject(userfile));
+        }
+
+        public static void UpdateFriends(User user)
+        {
+            var userfile = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json"));
+            foreach (int id in user.Friends)
+            {
+                
+            }
         }
 
         public static void AddNewUser(User user)

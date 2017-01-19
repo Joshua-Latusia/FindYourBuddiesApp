@@ -12,7 +12,7 @@ namespace FindYourBuddiesApp
     public class MapHandler
     {
         public static IRandomAccessStreamReference userImage = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/PlayerPin.png"));
-        public static IRandomAccessStreamReference friendImage = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/PlayerPin.png"));
+        public static IRandomAccessStreamReference friendImage = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/BuddyIcon4.png"));
 
         public static void DrawUser(MapControl map, UwpUser user, bool redraw, bool friend)
         {

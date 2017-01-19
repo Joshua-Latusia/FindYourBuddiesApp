@@ -3,12 +3,14 @@ using System.Diagnostics;
 using System.Threading;
 using Windows.Devices.Geolocation;
 using Windows.Devices.PointOfService;
+using Windows.System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using FindYourBuddiesApp.PageModels;
 using Newtonsoft.Json;
+using SharedCode.Packets;
 using SharedCodePortable;
 using SharedCodePortable.Packets;
 
@@ -25,8 +27,8 @@ namespace FindYourBuddiesApp.Pages
         public MapDisplayPage()
         {
             InitializeComponent();
-            startRefreshing();
-
+            //startRefreshing();
+            startTimer();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -36,41 +38,42 @@ namespace FindYourBuddiesApp.Pages
             MapHandler.center(MyMap, user.location);
         }
 
-        private void startRefreshing()
-        {
-            Timer Refresher = new Timer(timerCallback, null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(1));
-        }
+        //private void startRefreshing()
+        //{
+        //    Timer Refresher = new Timer(timerCallback, null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(1));
+        //}
 
-        private async void timerCallback(object state)
+        private void startTimer()
         {
-            var RefreshRequest = JsonConvert.SerializeObject(new RefreshRequest() {user = user.user});
-            
-            var packet = new Packet() {PacketType = EPacketType.RefreshRequest, Payload = RefreshRequest};
+            TimeSpan delay = TimeSpan.FromSeconds(10);
 
-            TcpClient.DoRequest(packet, ResponseCallback);
+            ThreadPoolTimer.CreateTimer(
+                (source) =>
+                {
+                    var RefreshRequest = JsonConvert.SerializeObject(new RefreshRequest() { user = user.user });
+
+                    var packet = new Packet() { PacketType = EPacketType.RefreshRequest, Payload = RefreshRequest };
+
+                    TcpClient.DoRequest(packet, ResponseCallback);
+                }, delay);
         }
 
         private async void ResponseCallback(Packet packet)
         {
-            user.user = JsonConvert.DeserializeObject<User>(packet.Payload);
-
-            //send request for friends
+            var friends = JsonConvert.DeserializeObject<AllFriendsResponse>(packet.Payload);
 
             await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
                 MapHandler.DrawUser(MyMap, user, true, false);
-                MapHandler.center(MyMap, user.location);
-                Debug.WriteLine("update user");
+
+                foreach (User u in friends.friends)
+                {
+                    UwpUser friend = new UwpUser(u, "");
+                    MapHandler.DrawUser(MyMap, friend, true, true);
+                }
+                Debug.WriteLine("update friend");
             });
         }
-
-        //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    var b = (Button) sender;
-        //    var selected = (User) b.DataContext;
-        //    var loc = new Geopoint(new BasicGeoposition {Latitude = selected.Position.Latitude, Longitude = selected.Position.Longitude});
-        //    Map.Center = loc;
-        //}
     }
 
    

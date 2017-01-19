@@ -115,7 +115,11 @@ namespace FindYourFriendsServer
                     break;
 
                 case EPacketType.RefreshRequest:
-                                      
+                    var refresh = JsonConvert.DeserializeObject<RefreshRequest>(p.Payload);
+                    Console.WriteLine($"Resfresh request from: {refresh.user.UserName}");
+                    UsersFile.UpdateUser(refresh.user);     
+                    
+                    Send(client, new Packet() {PacketType = EPacketType.RefreshResponse, Payload = JsonConvert.SerializeObject(new AllFriendsResponse() {friends = UsersFile.GetAllFriendsByID(refresh.user.Friends) })});
                     break;
 
                 case EPacketType.RequestAllFriends:
