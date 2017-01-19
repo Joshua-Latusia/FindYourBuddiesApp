@@ -20,6 +20,9 @@
         CheckUsernameRequest,
         SearchUsernameRequest,
         SearchUsernameResponse,
-        AddFriendRequest
+        AddFriendRequest,
+        RequestAllFriends,
+        AllFriendsRequest,
+        AllFriendsResponse
     }
 }
