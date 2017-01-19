@@ -30,7 +30,9 @@ namespace FindYourFriendsServer
         {       
 
             var userList = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json")).Users;
+            //LINQ ---
             return userList.Where(u => u.UserName.Contains(username)).ToList();
+            //LINQ ---
      
         }
 
