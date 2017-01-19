@@ -38,7 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Packet.cs" />
+    <Compile Include="Packets\AllFriendsResponse.cs" />
     <Compile Include="Packets\CheckUsernameRequest.cs" />
+    <Compile Include="Packets\RequestAllFriends.cs" />
     <Compile Include="Packets\GetUserRequest.cs" />
     <Compile Include="Packets\GetUserResponse.cs" />
     <Compile Include="Packets\SearchUsernameResponse.cs" />

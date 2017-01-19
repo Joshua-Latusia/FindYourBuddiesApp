@@ -5,6 +5,7 @@
     xmlns:local="using:FindYourBuddiesApp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sharedCodePortable="using:SharedCodePortable"
     mc:Ignorable="d">
 
     <Grid Background="Transparent">
@@ -17,9 +18,9 @@
     <Rectangle Width="10000" Stretch="UniformToFill"></Rectangle>
         <ScrollViewer VerticalAlignment="Stretch">
         <StackPanel Orientation="Vertical">
-            <ListView x:Name="FriendList">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
+            <ListView x:Name="FriendList" ItemsSource="{x:Bind Friends}">
+                <ListView.ItemTemplate >
+                    <DataTemplate x:DataType="sharedCodePortable:User">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"></ColumnDefinition>
@@ -40,14 +41,14 @@
                                 <Grid Row="0">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Name:"></TextBlock>
-                                        <TextBlock Text="Abraham"></TextBlock>
+                                        <TextBlock Text="{x:Bind FirstName}"></TextBlock>
                                     </StackPanel>
                                 </Grid>
 
                                 <Grid Row="1">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="UserName"></TextBlock>
-                                        <TextBlock Text="Abra1337"></TextBlock>
+                                        <TextBlock Text="{x:Bind UserName}"></TextBlock>
                                     </StackPanel>
                                 </Grid>
 

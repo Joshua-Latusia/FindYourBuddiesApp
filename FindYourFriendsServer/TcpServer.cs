@@ -117,6 +117,14 @@ namespace FindYourFriendsServer
                 case EPacketType.RefreshRequest:
                     break;
 
+                case EPacketType.RequestAllFriends:
+                    var idList = JsonConvert.DeserializeObject<RequestAllFriends>(p.Payload);
+                    Console.WriteLine("Requesting friendslist...");
+                    Send(client, new Packet {PacketType = EPacketType.AllFriendsResponse, Payload = JsonConvert.SerializeObject(new AllFriendsResponse {friends = UsersFile.GetAllFriendsByID(idList.idList)})});
+
+
+                    break;
+
                 case EPacketType.GetUserRequest:
                     var getAcc = JsonConvert.DeserializeObject<GetUserRequest>(p.Payload);
                     Console.WriteLine($"getting account with username {getAcc.username}");

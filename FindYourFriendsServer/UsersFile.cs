@@ -34,6 +34,20 @@ namespace FindYourFriendsServer
      
         }
 
+        public static List<User> GetAllFriendsByID(List<int> ids)
+        {
+            var userList = JsonConvert.DeserializeObject<UsersFile>(File.ReadAllText("users.json")).Users;
+            List<User> friends = new List<User>();
+            foreach (var user in userList)
+            {
+                if(ids.Contains(user.UserId))
+                {
+                    friends.Add(user);
+                }
+            }
+            return friends;
+        }
+
         //TODO test
         public static void RemoveUser(string username)
         {
