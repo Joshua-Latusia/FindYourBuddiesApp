@@ -11,21 +11,21 @@ namespace FindYourBuddiesApp
 {
     internal class Utils
     {
-        private const int TIMEOUT_MILLISECONDS = 5000;
-        public static string IP_ADRESS = "10.0.0.5";
+        private const int TimeoutMilliseconds = 5000;
+        public static string IpAdress = "10.0.0.5";
         public static int Port = 1337;
-        private static Socket Socket;
-        private static readonly ManualResetEvent _clientDone = new ManualResetEvent(false);
+        private static Socket _socket;
+        private static readonly ManualResetEvent ClientDone = new ManualResetEvent(false);
 
 
 
-        // geeen idee wtf dit doet
+       
         public static string Connect(string hostName, int portNumber)
         {
             var result = string.Empty;
             var hostEntry = new DnsEndPoint(hostName, portNumber);
 
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             var socketEventArg = new SocketAsyncEventArgs();
             socketEventArg.RemoteEndPoint = hostEntry;
@@ -34,12 +34,12 @@ namespace FindYourBuddiesApp
                 delegate(object s, SocketAsyncEventArgs e)
                 {
                     result = e.SocketError.ToString();
-                    _clientDone.Set();
+                    ClientDone.Set();
                 };
 
-            _clientDone.Reset();
-            Socket.ConnectAsync(socketEventArg);
-            _clientDone.WaitOne(TIMEOUT_MILLISECONDS);
+            ClientDone.Reset();
+            _socket.ConnectAsync(socketEventArg);
+            ClientDone.WaitOne(TimeoutMilliseconds);
             return result;
         }
 
@@ -61,18 +61,18 @@ namespace FindYourBuddiesApp
         public static string SendPacket(Packet p)
         {
             var response = "Error";
-            if (Socket != null)
+            if (_socket != null)
             {
                 var socketEventArgs = new SocketAsyncEventArgs();
 
-                socketEventArgs.RemoteEndPoint = Socket.RemoteEndPoint;
+                socketEventArgs.RemoteEndPoint = _socket.RemoteEndPoint;
                 socketEventArgs.UserToken = null;
 
                 socketEventArgs.Completed += delegate(object s, SocketAsyncEventArgs e)
                 {
                     response = e.SocketError.ToString();
 
-                    _clientDone.Set();
+                    ClientDone.Set();
                 };
 
                 var data = JsonConvert.SerializeObject(p);
@@ -80,11 +80,11 @@ namespace FindYourBuddiesApp
                 var payload = Encoding.UTF8.GetBytes(data);
                 socketEventArgs.SetBuffer(payload, 0, payload.Length);
 
-                _clientDone.Reset();
+                ClientDone.Reset();
 
-                Socket.SendAsync(socketEventArgs);
+                _socket.SendAsync(socketEventArgs);
 
-                _clientDone.WaitOne(TIMEOUT_MILLISECONDS);
+                ClientDone.WaitOne(TimeoutMilliseconds);
 
 
                 return response;
@@ -97,10 +97,10 @@ namespace FindYourBuddiesApp
         {
             var response = "Time Out";
 
-            if (Socket != null)
+            if (_socket != null)
             {
                 var socketEventArg = new SocketAsyncEventArgs();
-                socketEventArg.RemoteEndPoint = Socket.RemoteEndPoint;
+                socketEventArg.RemoteEndPoint = _socket.RemoteEndPoint;
 
                 socketEventArg.SetBuffer(new byte[68140], 0, 68140);
 
@@ -115,14 +115,14 @@ namespace FindYourBuddiesApp
                         //response = response.Trim('\0');
                     }
 
-                    _clientDone.Set();
+                    ClientDone.Set();
                 };
 
-                _clientDone.Reset();
+                ClientDone.Reset();
 
-                Socket.ReceiveAsync(socketEventArg);
+                _socket.ReceiveAsync(socketEventArg);
 
-                _clientDone.WaitOne(TIMEOUT_MILLISECONDS);
+                ClientDone.WaitOne(TimeoutMilliseconds);
             }
 
 

@@ -19,7 +19,6 @@ namespace FindYourBuddiesApp.Pages
     public sealed partial class CreateAccountPage : Page
     {
         private bool _isPasswordMatching;
-        //TODO set to false when username checking works
         private bool _isUsernameAvailable = true;
 
         public CreateAccountPage()

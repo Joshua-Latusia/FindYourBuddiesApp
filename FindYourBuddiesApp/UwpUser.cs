@@ -6,35 +6,35 @@ namespace FindYourBuddiesApp
 {
     public class UwpUser
     {
-        public User user { get; set; }
-        public Geopoint location { get; set; }
-        private Geolocator locator;
+        public User User { get; set; }
+        public Geopoint Location { get; set; }
+        private Geolocator _locator;
        
         public UwpUser(User user)
         {
-            this.user = user;
-            location = Utils.PointToGeopoint(user.Position);
-            geolocate();
+            this.User = user;
+            Location = Utils.PointToGeopoint(user.Position);
+            Geolocate();
         }
 
         public UwpUser(User user, string s)
         {
-            this.user = user;
-            location = Utils.PointToGeopoint(user.Position);
+            this.User = user;
+            Location = Utils.PointToGeopoint(user.Position);
         }
 
-        public async void geolocate()
+        public async void Geolocate()
         {
             GeolocationAccessStatus accessStatus = await Geolocator.RequestAccessAsync();
             switch (accessStatus)
             {
                 case GeolocationAccessStatus.Allowed:
-                    locator = new Geolocator { DesiredAccuracy = PositionAccuracy.Default, MovementThreshold = 2 };
+                    _locator = new Geolocator { DesiredAccuracy = PositionAccuracy.Default, MovementThreshold = 2 };
                     // geolocator = new Geolocator {ReportInterval = 1000};
-                    Geoposition pos = await locator.GetGeopositionAsync();
-                    location = pos.Coordinate.Point;
+                    Geoposition pos = await _locator.GetGeopositionAsync();
+                    Location = pos.Coordinate.Point;
                     UpdateLocation();
-                    locator.PositionChanged += LocatorOnPositionChanged;
+                    _locator.PositionChanged += LocatorOnPositionChanged;
                     break;
 
             }
@@ -42,12 +42,12 @@ namespace FindYourBuddiesApp
 
         private void LocatorOnPositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
-            location = args.Position.Coordinate.Point;
+            Location = args.Position.Coordinate.Point;
         }
 
         public void UpdateLocation()
         {
-            user.Position = Utils.GeopointToPoint(location);
+            User.Position = Utils.GeopointToPoint(Location);
         }
 
         

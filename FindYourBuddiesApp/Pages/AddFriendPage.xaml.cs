@@ -20,8 +20,8 @@ namespace FindYourBuddiesApp.Pages
     {
 
         // public User LogedInUser;
-        private UwpUser user;
-        //TODO remove new bla bla and put this in the searchrequest button.
+        private UwpUser _user;
+        
         public ObservableCollection<User> MatchingUsers;
         public AddFriendPage()
         {
@@ -32,7 +32,7 @@ namespace FindYourBuddiesApp.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //LogedInUser = (User) e.Parameter;
-            user = (UwpUser)e.Parameter;
+            _user = (UwpUser)e.Parameter;
             MatchingUsers = new ObservableCollection<User>();
           
         }
@@ -40,7 +40,7 @@ namespace FindYourBuddiesApp.Pages
 
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(FriendsOverviewPage), user);
+            Frame.Navigate(typeof(FriendsOverviewPage), _user);
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -90,8 +90,7 @@ namespace FindYourBuddiesApp.Pages
                 {
                     AddFriendRequest r = new AddFriendRequest
                     {
-                        //TODO change to logedInUser
-                        logedinUser = user.user.UserName,
+                        logedinUser = _user.User.UserName,
                         friendUsername = MatchingUsers[ResultsList.SelectedIndex].UserName
                     };
                     Packet p = new Packet

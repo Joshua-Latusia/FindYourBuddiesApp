@@ -10,7 +10,7 @@ namespace FindYourFriendsServer
         {
             if (!File.Exists("users.json"))
                 return false;
-            //TODO fixx
+            
             return UsersFile.GetUser(username).PasswordHash == hash;
         }
 

@@ -40,9 +40,9 @@ namespace FindYourBuddiesApp
 
                 sendArgs.Completed += delegate
                 {
-                    var recvArgs = new SocketAsyncEventArgs {RemoteEndPoint = _socket.RemoteEndPoint};
+                    var recvArgs = new SocketAsyncEventArgs { RemoteEndPoint = _socket.RemoteEndPoint };
 
-                    recvArgs.Completed += delegate(object s, SocketAsyncEventArgs e)
+                    recvArgs.Completed += delegate (object s, SocketAsyncEventArgs e)
                     {
                         var response = Encoding.UTF8.GetString(e.Buffer, e.Offset, e.BytesTransferred);
                         Disconnect();
@@ -64,7 +64,7 @@ namespace FindYourBuddiesApp
 
         }
 
-    
+
 
         private void Disconnect()
         {

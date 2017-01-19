@@ -18,19 +18,19 @@ namespace FindYourBuddiesApp.Pages
     /// </summary>
     public sealed partial class MapDisplayPage : Page
     {
-        private UwpUser user;
+        private UwpUser _user;
         public MapDisplayPage()
         {
             InitializeComponent();
             //startRefreshing();
-            startTimer();
+            StartTimer();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            user = (UwpUser) e.Parameter;
-            MapHandler.DrawUser(MyMap,user,false,false);
-            MapHandler.center(MyMap, user.location);
+            _user = (UwpUser) e.Parameter;
+            MapHandler.DrawUser(MyMap,_user,false,false);
+            MapHandler.Center(MyMap, _user.Location);
         }
 
         //private void startRefreshing()
@@ -38,16 +38,16 @@ namespace FindYourBuddiesApp.Pages
         //    Timer Refresher = new Timer(timerCallback, null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(1));
         //}
 
-        private void startTimer()
+        private void StartTimer()
         {
             TimeSpan delay = TimeSpan.FromSeconds(10);
 
             ThreadPoolTimer.CreateTimer(
                 source =>
                 {
-                    var RefreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = user.user });
+                    var refreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = _user.User });
 
-                    var packet = new Packet { PacketType = EPacketType.RefreshRequest, Payload = RefreshRequest };
+                    var packet = new Packet { PacketType = EPacketType.RefreshRequest, Payload = refreshRequest };
 
                     TcpClient.DoRequest(packet, ResponseCallback);
                 }, delay);
@@ -59,7 +59,7 @@ namespace FindYourBuddiesApp.Pages
 
             await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
-                MapHandler.DrawUser(MyMap, user, true, false);
+                MapHandler.DrawUser(MyMap, _user, true, false);
 
                 foreach (User u in friends.friends)
                 {

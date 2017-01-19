@@ -21,14 +21,12 @@ namespace FindYourBuddiesApp.Pages
             InitializeComponent();
         }
 
-
-        //TODO add Navigation change 
+ 
         private void CreateAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(CreateAccountPage));
         }
 
-        //TODO add Login stuff
         private void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
             string user = "Nan";
