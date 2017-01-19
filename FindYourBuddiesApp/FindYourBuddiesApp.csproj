@@ -131,6 +131,7 @@
     <Content Include="Assets\BuddyIcon2.png" />
     <Content Include="Assets\BuddyIcon3.png" />
     <Content Include="Assets\BuddyIcon4.png" />
+    <Content Include="Assets\PlayerPin.png" />
     <Content Include="Assets\PlusIcon.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

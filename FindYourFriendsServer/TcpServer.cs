@@ -115,6 +115,7 @@ namespace FindYourFriendsServer
                     break;
 
                 case EPacketType.RefreshRequest:
+                                      
                     break;
 
                 case EPacketType.GetUserRequest:

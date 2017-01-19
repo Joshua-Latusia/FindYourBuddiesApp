@@ -48,7 +48,7 @@ namespace FindYourBuddiesApp
         {
             if (point == null)
             {
-                return new Geopoint(new BasicGeoposition() {Latitude = 4.7972440999999435, Longitude = 51.5840049 });
+                return new Geopoint(new BasicGeoposition() {Latitude = 51.5840049, Longitude = 4.7972440999999435 });
             }
             else
             {

@@ -17,13 +17,13 @@ namespace FindYourBuddiesApp
         public MainPage()
         {
             InitializeComponent();
-            Frame.Navigate(typeof(MapDisplayPage));
-            Map.IsSelected = true;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             user = new UwpUser((User)e.Parameter);
+            Frame.Navigate(typeof(MapDisplayPage), user);
+            Map.IsSelected = true;
         }
 
         private void MenuListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

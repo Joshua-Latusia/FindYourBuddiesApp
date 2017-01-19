@@ -11,8 +11,8 @@ namespace FindYourBuddiesApp
 {
     public class MapHandler
     {
-        public static IRandomAccessStreamReference userImage = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/user.png"));
-        public static IRandomAccessStreamReference friendImage = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/friend.png"));
+        public static IRandomAccessStreamReference userImage = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/PlayerPin.png"));
+        public static IRandomAccessStreamReference friendImage = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/PlayerPin.png"));
 
         public static void DrawUser(MapControl map, UwpUser user, bool redraw, bool friend)
         {
@@ -46,6 +46,11 @@ namespace FindYourBuddiesApp
             MapRouteView route = new MapRouteView(result.Route);
             route.RouteColor = Colors.Blue;
             map.Routes.Add(route);
+        }
+
+        public static void center(MapControl map, Geopoint location)
+        {
+            map.Center = location;
         }
 
     }
