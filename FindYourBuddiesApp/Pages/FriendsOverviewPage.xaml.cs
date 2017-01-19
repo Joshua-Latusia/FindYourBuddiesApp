@@ -40,7 +40,7 @@ namespace FindYourBuddiesApp.Pages
             Friends = new ObservableCollection<User>();
             //if (LogedInUser != null) Friends = new ObservableCollection<User>(LogedInUser.Friends);
 
-            UpdateFriends();
+            //UpdateFriends();
             
 
             if (user != null) FriendList.ItemsSource = user.user.Friends;
@@ -134,6 +134,11 @@ namespace FindYourBuddiesApp.Pages
         private void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(AddFriendPage), user);
+        }
+
+        private void RefreshButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            UpdateFriends();
         }
     }
 }
