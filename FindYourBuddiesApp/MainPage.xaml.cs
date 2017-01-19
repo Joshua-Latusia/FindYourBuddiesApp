@@ -42,15 +42,15 @@ namespace FindYourBuddiesApp
             }
             else if (Meeting.IsSelected)
             {
-                // TODO maybe implement this page
+                Map.IsSelected = true;
             }
             else if (Settings.IsSelected)
             {
-                // TODO maybe implement this page
+                Map.IsSelected = true;
             }
             else if (Help.IsSelected)
             {
-                // TODO maybe implement this page
+                Map.IsSelected = true;
             }
         }
 
