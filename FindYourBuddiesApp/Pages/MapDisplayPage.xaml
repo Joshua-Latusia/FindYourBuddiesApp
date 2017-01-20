@@ -18,5 +18,7 @@
                          ZoomLevel =" 25"
                          LandmarksVisible="True" />
         <Button Name="TestButton" Visibility="Visible" Content="Test" Click="TestButton_OnClick" Height="100" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Blue"></Button>
+        <Button Name="TestButton2" Visibility="Visible" Content="Test" Click="TestButton2_OnClick" Height="100" Width="100" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Red"></Button>
+        <Button Name="TestButton3" Visibility="Visible" Content="Test" Click="TestButton3_OnClick" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Yellow"></Button>
     </Grid>
 </Page>
