@@ -135,6 +135,7 @@ namespace FindYourBuddiesApp.Pages
         // Calls on a webrequest for the current user to get the friends and show them in the overview using databinding and item template.
         private void RefreshButton_OnClick(object sender, RoutedEventArgs e)
         {
+            Friends.Clear();
             UpdateFriends();
         }
 

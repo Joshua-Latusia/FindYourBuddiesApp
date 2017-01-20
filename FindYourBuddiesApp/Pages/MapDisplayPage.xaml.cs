@@ -55,19 +55,22 @@ namespace FindYourBuddiesApp.Pages
 
         private async void ResponseCallback(Packet packet)
         {
-            var friends = JsonConvert.DeserializeObject<AllFriendsResponse>(packet.Payload);
-
-            await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+            if (packet.Payload != null)
             {
-                MapHandler.DrawUser(MyMap, _user, true, false);
+                var friends = JsonConvert.DeserializeObject<AllFriendsResponse>(packet.Payload);
 
-                foreach (User u in friends.friends)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                 {
-                    UwpUser friend = new UwpUser(u, "");
-                    MapHandler.DrawUser(MyMap, friend, true, true);
-                }
-                Debug.WriteLine("update friend");
-            });
+                    MapHandler.DrawUser(MyMap, _user, true, false);
+
+                    foreach (User u in friends.friends)
+                    {
+                        UwpUser friend = new UwpUser(u, "");
+                        MapHandler.DrawUser(MyMap, friend, true, true);
+                    }
+                    Debug.WriteLine("update friend");
+                });
+            }
         }
     }
 

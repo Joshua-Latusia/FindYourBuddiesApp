@@ -10,7 +10,7 @@ namespace FindYourBuddiesApp
     class TcpClient
     {
         private Socket _socket;
-        private static string IP = "192.168.1.101";
+        private static string IP = "127.0.0.1";
         private static int Port = 1337;
 
         public static void DoRequest(Packet p, Action<Packet> responseCallback)

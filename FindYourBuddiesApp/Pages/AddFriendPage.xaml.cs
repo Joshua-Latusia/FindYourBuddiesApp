@@ -84,7 +84,7 @@ namespace FindYourBuddiesApp.Pages
 
         private async void AddFriendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (ResultsList.SelectedIndex > 0)
+            if (ResultsList.SelectedIndex >= 0)
             {
                 if (MatchingUsers[ResultsList.SelectedIndex] != null)
                 {
