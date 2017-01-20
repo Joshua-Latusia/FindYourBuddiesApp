@@ -113,6 +113,12 @@ namespace FindYourBuddiesApp.Pages
             _user.Location = new Geopoint(new BasicGeoposition() {Latitude = 51.5840049, Longitude = 4.7972440999999435 });
             _user.UpdateLocation();
         }
+
+        private void TestButton2_OnClick(object sender, RoutedEventArgs e)
+        {
+            _user.Location = new Geopoint(new BasicGeoposition() { Latitude = 51.57590450000001, Longitude = 4.77924280000002 });
+            _user.UpdateLocation();
+        }
     }
 
    
