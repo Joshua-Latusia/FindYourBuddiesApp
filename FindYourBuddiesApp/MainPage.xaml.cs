@@ -30,12 +30,18 @@ namespace FindYourBuddiesApp
         {
             if (Map.IsSelected)
             {
+                if(FriendsOverviewPage._user != null)
+                    _user = FriendsOverviewPage._user;
+
                 Frame.Navigate(typeof(MapDisplayPage),_user);
                 BackButton.Visibility = Visibility.Collapsed;
                 PageName.Text = "Find your buddies!";
             }
             else if (Friends.IsSelected)
             {
+                if (MapDisplayPage.timerstarted)
+                    MapDisplayPage.timer.Stop();
+
                 Frame.Navigate(typeof(FriendsOverviewPage),_user);
                 BackButton.Visibility = Visibility.Visible;
                 PageName.Text = "All your buddies!";

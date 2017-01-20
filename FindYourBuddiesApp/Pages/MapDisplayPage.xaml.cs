@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using Windows.Devices.Geolocation;
 using Windows.System.Threading;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
+using SharedCode;
 using SharedCode.Packets;
 using SharedCodePortable;
 using SharedCodePortable.Packets;
@@ -19,11 +22,13 @@ namespace FindYourBuddiesApp.Pages
     public sealed partial class MapDisplayPage : Page
     {
         private UwpUser _user;
+        public static DispatcherTimer timer;
+        public static bool timerstarted = false;
+
         public MapDisplayPage()
         {
             InitializeComponent();
             //startRefreshing();
-            StartTimer();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -31,6 +36,14 @@ namespace FindYourBuddiesApp.Pages
             _user = (UwpUser) e.Parameter;
             MapHandler.DrawUser(MyMap,_user,false,false);
             MapHandler.Center(MyMap, _user.Location);
+
+            var refreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = _user.User });
+
+            var packet = new Packet { PacketType = EPacketType.RefreshRequest, Payload = refreshRequest };
+
+            TcpClient.DoRequest(packet, ResponseCallback);
+
+            StartTimer();
         }
 
         //private void startRefreshing()
@@ -38,20 +51,42 @@ namespace FindYourBuddiesApp.Pages
         //    Timer Refresher = new Timer(timerCallback, null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(1));
         //}
 
+
         private void StartTimer()
         {
-            TimeSpan delay = TimeSpan.FromSeconds(10);
-
-            ThreadPoolTimer.CreateTimer(
-                source =>
-                {
-                    var refreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = _user.User });
-
-                    var packet = new Packet { PacketType = EPacketType.RefreshRequest, Payload = refreshRequest };
-
-                    TcpClient.DoRequest(packet, ResponseCallback);
-                }, delay);
+            timerstarted = true;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += TimerOnTick;
+            timer.Start();
         }
+
+
+        private void TimerOnTick(object sender, object o)
+        {
+            var refreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = _user.User });
+
+            var packet = new Packet { PacketType = EPacketType.RefreshRequest, Payload = refreshRequest };
+
+            TcpClient.DoRequest(packet, ResponseCallback);
+        }
+
+        // ff de t weer hoofdletter
+        //private void Starttimer()
+        //{
+        //    TimeSpan delay = TimeSpan.FromSeconds(10);
+
+        //    ThreadPoolTimer.CreatePeriodicTimer(
+        //        source =>
+        //        {
+        //            var refreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = _user.User });
+
+        //            var packet = new Packet { PacketType = EPacketType.RefreshRequest, Payload = refreshRequest };
+
+        //            TcpClient.DoRequest(packet, ResponseCallback);
+        //        }, delay);
+           
+        //}
 
         private async void ResponseCallback(Packet packet)
         {
@@ -71,6 +106,12 @@ namespace FindYourBuddiesApp.Pages
                     Debug.WriteLine("update friend");
                 });
             }
+        }
+
+        private void TestButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _user.Location = new Geopoint(new BasicGeoposition() {Latitude = 51.5840049, Longitude = 4.7972440999999435 });
+            _user.UpdateLocation();
         }
     }
 

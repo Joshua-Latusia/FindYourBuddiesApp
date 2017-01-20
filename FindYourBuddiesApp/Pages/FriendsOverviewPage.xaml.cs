@@ -21,7 +21,7 @@ namespace FindYourBuddiesApp.Pages
         public ObservableCollection<User> Friends;
         
         // The loged in user.
-        private UwpUser _user;
+        public static UwpUser _user;
 
 
         public FriendsOverviewPage()
