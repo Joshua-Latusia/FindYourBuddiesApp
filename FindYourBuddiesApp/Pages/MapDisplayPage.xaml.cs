@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using Windows.ApplicationModel.Core;
 using Windows.Devices.Geolocation;
+using Windows.Devices.Geolocation.Geofencing;
+using Windows.Devices.Sensors;
 using Windows.System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
 using SharedCode;
@@ -24,18 +29,22 @@ namespace FindYourBuddiesApp.Pages
         private UwpUser _user;
         public static DispatcherTimer timer;
         public static bool timerstarted = false;
+        public IList<Geofence> geofences;
+        public Geofence CurrentGeofence;
 
         public MapDisplayPage()
         {
             InitializeComponent();
+            GeofenceMonitor.Current.GeofenceStateChanged += CurrentOnGeofenceStateChanged;
             //startRefreshing();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _user = (UwpUser) e.Parameter;
-            MapHandler.DrawUser(MyMap,_user,false,false);
+            _user = (UwpUser)e.Parameter;
+            MapHandler.DrawUser(MyMap, _user, false, false);
             MapHandler.Center(MyMap, _user.Location);
+            GeofenceMonitor.Current.GeofenceStateChanged += CurrentOnGeofenceStateChanged;
 
             var refreshRequest = JsonConvert.SerializeObject(new RefreshRequest { user = _user.User });
 
@@ -45,6 +54,90 @@ namespace FindYourBuddiesApp.Pages
 
             StartTimer();
         }
+
+        private async void CurrentOnGeofenceStateChanged(GeofenceMonitor sender, object args)
+        {
+            var reports = sender.ReadReports();
+
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.High, agileCallback: (async () =>
+                {
+                   foreach (GeofenceStateChangeReport report in reports)
+                    {
+                        switch (report.NewState)
+                        {
+                            case GeofenceState.Removed:
+
+                                break;
+
+                            case GeofenceState.Entered:
+                                Debug.WriteLine("entered");
+                                string username = report.Geofence.Id;
+                                CurrentGeofence = report.Geofence;
+                                timer.Stop();
+                                var packet = new Packet()
+                                {
+                                    PacketType = EPacketType.AllFriendsRequest,
+                                    Payload =
+                                        JsonConvert.SerializeObject(new RequestAllFriends()
+                                        {
+                                            idList = _user.User.Friends
+                                        })
+                                };
+
+                                TcpClient.DoRequest(packet, GeofenceResponseCallback);
+                               break;
+
+                            case GeofenceState.Exited:
+                                Debug.WriteLine("kekekekekekekekekekkeke");
+                                break;
+                        }
+                    }
+                }
+            ));
+        }
+
+        private async void GeofenceResponseCallback(Packet packet)
+        {
+            List<User> friends = JsonConvert.DeserializeObject<List<User>>(packet.Payload);
+            foreach (User u in friends)
+            {
+                if (u.UserName == CurrentGeofence.Id)
+                {
+                    string title = "you're in range of" + u.FirstName + " " + u.LastName;
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    {
+                        var dialog = new ContentDialog
+                        {
+                            Title = title,
+                            MaxWidth = ActualWidth
+                        };
+                        dialog.PrimaryButtonText = "OK";
+
+                        var result = await dialog.ShowAsync();
+                    });
+                }
+            }
+        }
+
+        private void AddGeofence(Geopoint location, string title, double radius)
+        {
+            string fenceKey = title;
+            // the geofence is a circular region:
+            Geocircle geocircle = new Geocircle(location.Position, radius);
+
+            try
+            {
+                GeofenceMonitor.Current.Geofences.Add(new Geofence(fenceKey, geocircle, MonitoredGeofenceStates.Entered, false, TimeSpan.FromSeconds(0.1)));
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("catched" + e);
+            }
+
+        }
+
+
 
         //private void startRefreshing()
         //{
@@ -96,11 +189,13 @@ namespace FindYourBuddiesApp.Pages
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                 {
+                    GeofenceMonitor.Current.Geofences.Clear();
                     MapHandler.DrawUser(MyMap, _user, true, false);
 
                     foreach (User u in friends.friends)
                     {
                         UwpUser friend = new UwpUser(u, "");
+                        AddGeofence(friend.Location, friend.User.UserName, 20);
                         MapHandler.DrawUser(MyMap, friend, true, true);
                     }
                     Debug.WriteLine("update friend");
@@ -113,7 +208,9 @@ namespace FindYourBuddiesApp.Pages
             _user.Location = new Geopoint(new BasicGeoposition() {Latitude = 51.5840049, Longitude = 4.7972440999999435 });
             _user.UpdateLocation();
         }
+
     }
+
 
    
 }
